@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smyrna Kebab Haus | Speisekarte</title>
+    <link class="html-node" id="node-1" rel="stylesheet" href="css/all.min.css">
+
+    
+    <link class="html-node" id="node-2" rel="stylesheet" href="style.css">
+
+    
+    <script class="html-node" id="node-3" src="tailwind.js"></script>
+
+    
+    <script class="html-node" id="node-4">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        
+                        brand: {
+                            bg: '#141414',       /* Tiefes Dunkelgrau für den Haupt-Hintergrund */
+                            card: '#1f1f1f',     /* Etwas helleres Grau für die Speisen-Karten */
+                            red: '#d32f2f',      /* Das kräftige Rot für Buttons und Highlights */
+                            muted: '#a3a3a3',    /* Ein weiches Grau für Zutaten-Texte */
+                        },
+                        
+                        orange: {
+                            50: '#fff7ed',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        },
+                        amber: {
+                            50: '#ffffec',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        },
+                        slate: {
+                            50: '#f8fafc',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    
+    <script class="html-node" id="node-5" src="script.js" defer></script>
+</head>
+<body class="h-full flex flex-col bg-brand-bg text-white antialiased selection:bg-brand-red selection:text-white">
+<header class="bg-neutral-950 text-white sticky top-0 z-40 shadow-lg border-b border-neutral-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
+        
+        
+        <div class="flex flex-row items-center justify-center text-left w-full md:w-auto space-x-3">
+            <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center bg-brand-card border border-neutral-800">
+                <img src="Bilder/Logo.jpg" alt="Smyrna Logo" class="w-full h-full object-contain rounded-xl">
+            </div>
+            <div class="flex flex-col">
+                <h1 id="restaurant-name" class="text-base sm:text-lg font-bold tracking-tight text-white leading-tight">Smyrna Kebab Haus</h1>
+                <p id="restaurant-tagline" class="text-xs text-brand-muted">Leckere Speisen direkt bestellen</p> 
+            </div>
+        </div>
+
+        
+        <div class="flex flex-col items-center justify-center text-center bg-neutral-900 border border-neutral-800 px-4 py-2 rounded-xl w-full md:w-auto md:mx-auto shadow-inner">
+            <div class="flex items-center justify-center space-x-2">
+                <i class="fa-regular fa-clock text-brand-red text-xs"></i>
+                <span id="oeffnungszeiten-text" class="text-xs font-medium text-neutral-300">
+                    Sonntag-Freitag geöffnet <strong class="text-white font-semibold">10 bis 22 Uhr</strong>
+                </span>
+            </div>
+            <span class="text-[11px] font-semibold text-brand-red mt-1 block text-center">
+                Lieferung Umkreis 5 Km ab 20 €
+            </span>
+        </div>
+
+        
+        <div class="flex items-center justify-between sm:justify-end space-x-2 w-full md:w-auto mt-1 md:mt-0">
+            
+            <button id="back-to-menu-btn" onclick="scrollToMenu()" style="display: none;" class="md:!hidden flex-1 flex items-center justify-center space-x-1.5 text-[11px] font-bold bg-neutral-900 hover:bg-neutral-800 text-brand-red px-2 py-2 rounded-lg border border-brand-red/20 transition">
+                <i class="fa-solid fa-arrow-left text-xs"></i>
+                <span>Speisekarte</span>
+            </button>
+
+            <a href="https://www.google.com/maps/place/Wetzlarer+Kebaphaus/@50.5592216,8.4950716,17z/data=!3m1!4b1!4m6!3m5!1s0x47bc5ac8d00018ff:0xb17393368faeaa0e!8m2!3d50.5592182!4d8.4976465!16s%2Fg%2F11b6d1sw1z?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="flex-1 sm:flex-none flex items-center justify-center space-x-2 text-[11px] font-semibold bg-neutral-900 hover:bg-neutral-800 text-brand-red px-2 py-2 rounded-lg border border-neutral-800 transition">
+                <i class="fa-solid fa-map-marker-alt"></i>
+                <span>Anfahrt</span>
+            </a>
+
+            <button id="toggle-pdf-btn" onclick="togglePdfModal()" class="flex-1 sm:flex-none flex items-center justify-center space-x-2 text-[11px] font-semibold bg-neutral-900 hover:bg-neutral-800 text-brand-red px-2 py-2 rounded-lg border border-neutral-800 transition">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>Speisekarte</span>
+            </button>
+
+            <button onclick="toggleMobileCart()" class="relative bg-brand-red hover:bg-red-700 text-white p-2.5 rounded-lg font-medium transition flex items-center justify-center shadow-md">
+                <i class="fa-solid fa-cart-shopping text-base"></i>
+                <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-white text-brand-red text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-neutral-950 hidden">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+    
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        
+
+<section class="lg:col-span-7 xl:col-span-8 space-y-6 flex flex-col items-center lg:items-stretch w-full">
+    
+    
+    
+    <div class="bg-amber-950/40 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm flex items-start space-x-3 text-xs sm:text-sm text-amber-200 w-full max-w-md lg:max-w-none">
+        <i class="fa-solid fa-circle-info text-amber-500 text-lg flex-shrink-0 mt-0.5"></i>
+        <div class="flex-1">
+            <span class="font-bold text-amber-400">Hinweis:</span><br> Nur Barzahlung möglich!<br>Wählen Sie ein Gericht aus und schließen Sie den Bestellvorgang ab, indem Sie eine Bestellart auswählen
+        </div>
+    </div>
+
+    
+
+    
+    <div class="bg-brand-card p-4 rounded-2xl shadow-md border border-neutral-800 space-y-4 w-full lg:max-w-none">
+        
+        
+        <div class="relative">
+            <i class="fa-solid fa-search absolute left-3.5 top-3.5 text-neutral-500"></i>
+            <input type="text" id="search-input" oninput="filterDishes()" placeholder="Gericht oder Nummer suchen..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red text-sm transition">
+        </div>
+        
+        
+        <div id="category-tabs" class="flex items-center justify-start gap-4 overflow-x-auto pb-2 pt-1 w-full custom-scrollbar">
+            
+            
+            
+            
+            <button class="flex flex-col items-center space-y-1.5 group min-w-[75px] focus:outline-none">
+                <div class="w-14 h-14 rounded-full bg-neutral-900 border-2 border-brand-red flex items-center justify-center shadow-md overflow-hidden transition group-hover:scale-105 relative">
+                    <img src="" alt="" onerror="this.style.display='none'" class="w-full h-full object-cover absolute inset-0 z-10">
+                    <span class="text-xl relative z-0">✨</span> 
+                </div>
+                <span class="text-[11px] font-bold text-white tracking-tight">Alle</span>
+            </button>
+
+            
+            <button class="flex flex-col items-center space-y-1.5 group min-w-[75px] focus:outline-none">
+                <div class="w-14 h-14 rounded-full bg-neutral-900 border-2 border-neutral-800 flex items-center justify-center shadow-md overflow-hidden transition group-hover:scale-105 relative">
+                    <img src="" alt="Döner" onerror="this.style.display='none'" class="w-full h-full object-cover absolute inset-0 z-10">
+                    <span class="text-xl relative z-0">🥙</span> 
+                </div>
+                <span class="text-[11px] font-semibold text-brand-muted group-hover:text-white transition">Döner</span>
+            </button>
+
+            
+            <button class="flex flex-col items-center space-y-1.5 group min-w-[75px] focus:outline-none">
+                <div class="w-14 h-14 rounded-full bg-neutral-900 border-2 border-neutral-800 flex items-center justify-center shadow-md overflow-hidden transition group-hover:scale-105 relative">
+                    <img src="" alt="Pizza" onerror="this.style.display='none'" class="w-full h-full object-cover absolute inset-0 z-10">
+                    <span class="text-xl relative z-0">🍕</span> 
+                </div>
+                <span class="text-[11px] font-semibold text-brand-muted group-hover:text-white transition">Pizza</span>
+            </button>
+
+            
+            <button class="flex flex-col items-center space-y-1.5 group min-w-[75px] focus:outline-none">
+                <div class="w-14 h-14 rounded-full bg-neutral-900 border-2 border-neutral-800 flex items-center justify-center shadow-md overflow-hidden transition group-hover:scale-105 relative">
+                    <img src="" alt="Getränke" onerror="this.style.display='none'" class="w-full h-full object-cover absolute inset-0 z-10">
+                    <span class="text-xl relative z-0">🥤</span> 
+                </div>
+                <span class="text-[11px] font-semibold text-brand-muted group-hover:text-white transition">Getränke</span>
+            </button>
+            
+        </div>
+    </div>
+
+    
+    
+    <div id="menu-container" class="flex flex-col sm:grid sm:grid-cols-1 md:grid-cols-2 lg:flex lg:flex-col gap-6 w-full mx-auto">
+
+
+        
+    </div>
+</section>
+
+<section id="cart-sidebar" class="hidden lg:block lg:col-span-5 xl:col-span-4 sticky top-20">
+            <!-- Container: Jetzt im edlen 'brand-card' Anthrazit -->
+            <div class="bg-brand-card rounded-2xl shadow-lg border border-neutral-800 overflow-hidden flex flex-col max-h-[calc(100vh-6rem)]">
+                
+                
+                
+                <div class="p-4 bg-neutral-950 text-white flex items-center justify-between border-b border-neutral-800/80">
+
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-basket-shopping text-brand-red"></i>
+                        <h2 class="font-bold text-base">Ihre Bestellung</h2>
+                    </div>
+                    <button onclick="clearCart()" class="text-xs text-brand-muted hover:text-red-400 transition flex items-center space-x-1">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>Leeren</span>
+                    </button>
+                </div>
+
+                
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar min-h-[160px]">
+                    <!-- Dynamically Populated Cart Items -->
+                </div>
+
+                
+                
+                <div class="p-4 bg-neutral-900 border-t border-neutral-800 space-y-4">
+                    <!-- Pricing Totals -->
+                    <div class="space-y-1.5 text-sm">
+                        <div class="flex justify-between text-neutral-300">
+                            <span>Zwischensumme</span>
+                            <span id="subtotal-price">0,00 €</span>
+                        </div>
+                        <div class="flex justify-between text-neutral-300">
+                            <span>Liefergebühr</span>
+                            <span id="delivery-fee">0,00 €</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-white text-base pt-2 border-t border-neutral-800">
+                            <span>Gesamtsumme</span>
+                            <!-- Preis leuchtet im passenden Rot -->
+                            <span id="total-price" class="text-brand-red">0,00 €</span>
+                        </div>
+                    </div>
+
+                    
+                    
+                    <div class="space-y-2 pt-2">
+                        <label class="block text-xs font-semibold text-neutral-400 mb-1">Bitte wählen Sie Ihre Bestellart:</label>
+                        <div class="grid grid-cols-3 gap-1.5">
+                            <button type="button" onclick="openOrderModal('Lieferung')" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-neutral-800 bg-neutral-950 hover:border-brand-red hover:bg-brand-red/10 text-neutral-300 hover:text-white font-medium text-[11px] transition shadow-sm text-center">
+                                <i class="fa-solid fa-truck text-sm mb-1 text-brand-red"></i> Lieferung
+                            </button>
+                            <button type="button" onclick="openOrderModal('Selbstabholung')" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-neutral-800 bg-neutral-950 hover:border-brand-red hover:bg-brand-red/10 text-neutral-300 hover:text-white font-medium text-[11px] transition shadow-sm text-center">
+                                <i class="fa-solid fa-store text-sm mb-1 text-brand-red"></i> Abholung
+                            </button>
+                            <button type="button" onclick="openOrderModal('Vorort essen')" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-neutral-800 bg-neutral-950 hover:border-brand-red hover:bg-brand-red/10 text-neutral-300 hover:text-white font-medium text-[11px] transition shadow-sm text-center">
+    <!-- Das alte Lieferando-Icon wurde gelöscht. Hier ist Ihr neues, perfekt ausgerichtetes Bild: -->
+    <img src="vor-ort-bild.png" alt="" style="display: block !important; width: 20px !important; height: 20px !important; margin: 0 auto 4px auto !important;" onerror="console.log('Bild konnte nicht geladen werden')">
+    Vor Ort
+</button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+</main>
+    
+    
+    <div id="pdf-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="bg-brand-card w-full max-w-5xl h-[90vh] rounded-2xl flex flex-col overflow-hidden shadow-2xl border border-neutral-800">
+            <div class="p-4 bg-neutral-950 text-white flex justify-between items-center border-b border-neutral-800">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-file-pdf text-brand-red text-lg"></i>
+                    <h3 class="font-bold text-sm sm:text-base">Digitale Speisekarte (PDF)</h3>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <a id="pdf-download-link" href="#" target="_blank" download class="text-xs bg-neutral-900 hover:bg-neutral-800 text-brand-red px-3 py-1.5 rounded-lg border border-neutral-800 transition">
+                        <i class="fa-solid fa-download mr-1"></i> Herunterladen
+                    </a>
+                    <button onclick="togglePdfModal()" class="text-neutral-500 hover:text-white p-1">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 bg-neutral-900">
+                <iframe id="pdf-iframe" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="memo-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-brand-card w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] border border-neutral-800">
+            <div class="p-4 bg-neutral-950 text-white flex justify-between items-center border-b border-neutral-800">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-clipboard-list text-brand-red text-lg"></i>
+                    <h3 class="font-bold text-base">Bestell-Merkzettel fürs Telefon</h3>
+                </div>
+                <button onclick="closePhoneMemoModal()" class="text-neutral-500 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div class="p-5 space-y-4 overflow-y-auto bg-brand-card">
+                <p class="text-xs text-brand-muted">
+                    Kopieren Sie diesen Text oder halten Sie ihn während Ihres Anrufs bereit unter: 
+                    <strong id="modal-phone-num" class="text-white font-semibold">0123 / 456789</strong>
+                </p>
+                <textarea id="memo-textarea" readonly rows="12" class="w-full p-3 font-mono text-xs bg-neutral-900 border border-neutral-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red select-all"></textarea>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="copyMemoToClipboard()" class="w-full bg-brand-red hover:bg-red-700 text-white font-semibold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-md"><!--meine Webseite!!! Finger Weg !!!... Diese Webseite gehört dem großen, Mächtigen und unbestechlichen Meister Ünal Han-->
+                        <i class="fa-solid fa-copy"></i>
+                        <span id="copy-btn-text">Text kopieren</span>
+                    </button>
+                    <button onclick="window.print()" class="w-full bg-neutral-900 hover:bg-neutral-800 text-neutral-300 font-semibold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition border border-neutral-800">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Drucken</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="custom-order-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+        <div class="bg-brand-card w-full max-w-md rounded-2xl shadow-xl overflow-hidden border border-neutral-800 flex flex-col max-h-[90vh]">
+            
+            <div class="bg-neutral-950 px-5 py-4 border-b border-neutral-800 flex justify-between items-center">
+                <div>
+                    <h3 id="modal-order-title" class="font-bold text-white text-base">Bestellung abschließen</h3>
+                    <p id="modal-order-subtitle" class="text-xs text-brand-muted mt-0.5">Gewählte Art: Lieferung</p>
+                </div>
+                <button type="button" onclick="closeOrderModal()" class="text-neutral-500 hover:text-white p-1 rounded-lg hover:bg-neutral-900 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form id="pop-order-form" onsubmit="event.preventDefault();" class="p-5 space-y-3 overflow-y-auto flex-1 bg-brand-card">
+                
+                <input type="hidden" id="pop-order-type" value="Lieferung">
+<div class="bg-amber-950/40 border border-amber-900/60 rounded-xl p-3 mb-2">
+                    <h4 class="text-xs font-bold text-amber-400 flex items-center mb-1.5">
+                        <i class="fa-solid fa-clipboard-list mr-1.5"></i> Dein Spickzettel für den Anruf / WhatsApp
+                    </h4>
+                    <div id="pop-phone-summary" class="text-xs text-neutral-300 max-h-28 overflow-y-auto space-y-1 font-medium bg-neutral-900 p-2 rounded-lg border border-neutral-800">
+                    </div>
+                </div>
+
+                
+                <div class="mb-3">
+                    <label class="block text-xs font-semibold text-neutral-400 mb-1">Name *</label>
+                    <input type="text" id="pop-cust-name" placeholder="Max Mustermann" required class="w-full text-xs p-2.5 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-600 focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red outline-none">
+                </div>
+                
+                <div id="pop-delivery-fields" class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-400 mb-1">Lieferadresse *</label>
+                        <input type="text" id="pop-cust-address" placeholder="Musterstraße 12, 12345 Stadt" class="w-full text-xs p-2.5 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-600 focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-neutral-400 mb-1">Wunschuhrzeit *</label>
+                            <input type="time" id="pop-cust-time" class="w-full text-xs p-2.5 bg-neutral-900 border border-neutral-800 rounded-lg text-white focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red outline-none [color-scheme:dark]">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-neutral-400 mb-1">Telefonnummer</label>
+                            <input type="tel" id="pop-cust-phone" placeholder="0170 1234567" class="w-full text-xs p-2.5 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-600 focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="mt-3">
+                    <label class="block text-xs font-semibold text-neutral-400 mb-1">Anmerkung (Optional)</label>
+                    <textarea id="pop-cust-note" rows="2" placeholder="z.B. Bitte scharf, Etage 2..." class="w-full text-xs p-2 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-600 focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red outline-none resize-none"></textarea>
+                </div>
+                
+                
+                <div class="space-y-2 pt-3 border-t border-neutral-800 mt-4">
+                    <button type="button" onclick="sendPopOrderWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-xl transition flex items-center justify-center space-x-2 shadow-md text-sm">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Per WhatsApp bestellen</span>
+                    </button>
+                    
+                    <button type="button" onclick="callRestaurantDirectly()" class="w-full bg-neutral-900 hover:bg-neutral-800 text-brand-red font-medium py-2 px-4 rounded-xl transition flex items-center justify-center space-x-2 text-xs border border-neutral-800">
+                        <i class="fa-solid fa-phone text-xs"></i>
+                        <span>Jetzt anrufen & telefonisch bestellen</span>
+                    </button>
+
+                    <button type="button" onclick="closeOrderModal()" class="w-full bg-neutral-950 hover:bg-neutral-900 text-neutral-400 font-medium py-2 px-4 rounded-xl transition text-xs text-center border border-neutral-800">
+                        Zurück
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <div id="mobile-cart-backdrop" onclick="toggleMobileCart()" class="fixed inset-0 bg-black/80 z-40 hidden lg:hidden"></div>
+
+
+<div class="max-w-6xl mx-auto my-6 px-4 select-none">
+    <details id="allergen-details" class="group bg-[#111111] border border-zinc-800 rounded-2xl transition-all duration-300">
+        <!-- Der Klick-Kopf -->
+        <summary class="flex items-center justify-between p-4 cursor-pointer text-xs font-semibold text-zinc-400 hover:text-white list-none">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-circle-info text-orange-500 text-sm"></i>
+                <span>Hinweise zu Zusatzstoffen & Allergenen (Hier klicken zum Ausklappen)</span>
+            </div>
+            <i class="fa-solid fa-chevron-down transition-transform duration-300 group-open:rotate-180 text-zinc-500"></i>
+        </summary>
+        
+        
+        <div class="p-5 border-t border-zinc-800 text-[11px] text-zinc-400 space-y-4 bg-[#0a0a0a] rounded-b-2xl leading-relaxed">
+            
+            
+            <div id="back-to-dish-btn" class="hidden mb-3">
+                <button onclick="scrollBackToDish()" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center space-x-2 shadow-md">
+                    <i class="fa-solid fa-arrow-up"></i>
+                    <span>Zurück zum ausgewählten Gericht springen</span>
+                </button>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-zinc-200 mb-1.5 uppercase tracking-wider text-[10px]">Zusatzstoffe:</h4>
+                <p>
+                    <span class="text-orange-500 font-bold">1</span>= mit Farbstoff, <span class="text-orange-500 font-bold">2</span>= mit Konservierungsstoff, <span class="text-orange-500 font-bold">3</span>= mit Antioxidationsmittel, <span class="text-orange-500 font-bold">4</span>= geschwärzt, <span class="text-orange-500 font-bold">5</span>= geschwefelt, <span class="text-orange-500 font-bold">6</span>= gewachst, <span class="font-bold text-orange-500">7</span>= mit Phosphat, <span class="font-bold text-orange-500">8</span>= mit Geschmacksverstärker, <span class="font-bold text-orange-500">9</span>= Formfleischvorderschinken, <span class="font-bold text-orange-500">10</span>= mit Süßungsmittel, <span class="font-bold text-orange-500">12</span>= mit Nitritpökelsalz und Nitrat, <span class="font-bold text-orange-500">13</span>= Koffeinhaltig, <span class="font-bold text-orange-500">14</span>= enthält eine Phenylalaninquelle, <span class="font-bold text-orange-500">*</span>= vom Drehspieß, <span class="font-bold text-orange-500">16</span>= aus Rindfleisch, <span class="font-bold text-orange-500">17</span>= zur Hälfte aus Rindfleisch und Schweinefleisch, <span class="font-bold text-orange-500">18</span>= aus Schweinefleisch, <span class="font-bold text-orange-500">19</span>= vom Truthahn, <span class="font-bold text-orange-500">20</span>= Surimi= Krebsfleischimitat, <span class="font-bold text-orange-500">21</span>= modifizierte Stärke, <span class="font-bold text-orange-500">22</span>= Verdickungsmittel, <span class="font-bold text-orange-500">23</span>= Aroma, <span class="font-bold text-orange-500">24</span>= Backtriebmittel, <span class="font-bold text-orange-500">25</span>= Emulgatoren, <span class="font-bold text-orange-500">26</span>= Drehspieß Kalbfleisch.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-zinc-200 mb-1.5 uppercase tracking-wider text-[10px]">Allergene:</h4>
+                <p>
+                    <span class="text-orange-500 font-bold">A</span>= Glutenhaltiges Getreide (Weizen), <span class="text-orange-500 font-bold">B</span>= Krebstiere, <span class="text-orange-500 font-bold">C</span>= Eier, <span class="text-orange-500 font-bold">D</span>= Fisch, <span class="text-orange-500 font-bold">E</span>= Erdnüsse, <span class="text-orange-500 font-bold">F</span>= Sojabohnen, <span class="text-orange-500 font-bold">G</span>= Milch, <span class="text-orange-500 font-bold">H</span>= Schalenfrüchte (Nüsse), <span class="text-orange-500 font-bold">L</span>= Sellerie, <span class="text-orange-500 font-bold">M</span>= Senf, <span class="text-orange-500 font-bold">N</span>= Sesamsamen, <span class="text-orange-500 font-bold">O</span>= Schwefeldioxid und Sulfite, <span class="text-orange-500 font-bold">P</span>= Lupinen, <span class="text-orange-500 font-bold">R</span>= Weichtiere.
+                </p>
+            </div>
+
+            <div class="border-t border-zinc-800 pt-3 text-[10px] text-zinc-500 italic">
+                Trotz sorgfältiger Herstellung unserer Gerichte können neben gekennzeichneten Zutaten Spuren anderer Stoffe enthalten sein, die im Produktionsprozess in der Küche verwendet werden. Eine Liste der enthaltenen Allergene und Zusatzstoffe in unseren Speisen erfragen Sie bitte bei unserem Servicepersonal. Bitte informieren Sie unser Servicepersonal gegebenenfalls über Allergien oder Unverträglichkeiten.
+            </div>
+        </div>
+    </details>
+</div>
+
+
+
+    <footer class="mt-12 py-6 border-t border-neutral-800 text-center text-xs text-brand-muted">
+    <p>&copy; 2026 Smyrna Kebab Haus. Mehmet Serif Dayan. Sophienstraße 3, 35576 Wetzlar. Telefon: 015735345875 Alle Rechte vorbehalten. Webdesign by Ünal Han</p>
+    <div class="mt-2 space-x-4">
+        <a href="impressum.html" class="hover:text-brand-red underline transition">Impressum</a>
+        <a href="datenschutzerklärung.html" class="hover:text-brand-red underline transition">Datenschutzerklärung</a>
+    </div>
+</footer>
+
+
+    
+    <div id="legalModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4" style="display: none;">
+        <div class="bg-brand-card rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl border border-neutral-800">
+            <div class="p-4 border-b border-neutral-800 flex justify-between items-center bg-neutral-950 rounded-t-2xl">
+                <h2 id="legalModalTitle" class="font-bold text-white text-lg">Rechtliche Hinweise</h2>
+                <button onclick="closeLegalModal()" class="text-neutral-500 hover:text-white p-1 text-2xl">&times;</button>
+            </div>
+            <div id="legalModalBody" class="p-6 overflow-y-auto text-sm text-neutral-300 space-y-4 leading-relaxed bg-brand-card"></div>
+            <div class="p-4 border-t border-neutral-800 flex justify-end bg-neutral-900 rounded-b-2xl">
+                <button onclick="closeLegalModal()" class="bg-brand-red hover:bg-red-700 text-white font-medium px-4 py-2 rounded-xl text-xs transition shadow-md">Schließen</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
