@@ -167,23 +167,73 @@ window.onload = function() {
     updateCartUI();
 };
 
-
 function getCategoryEmojiByName(catId, categoryName) {
     const idText = catId.toLowerCase();
     const nameText = categoryName.toLowerCase();
     
+    // 🖥️ DESKTOP-SCHUTZ: Wenn der Bildschirm größer als ein Handy ist (>= 768px),
+    // wird sofort der originale Zustand ausgeführt und alles bleibt unverändert!
+    if (window.innerWidth >= 768) {
+        if (idText === 'all' || nameText.includes('alle') || nameText.includes('list')) return '✨';
+        if (nameText.includes('döner') || nameText.includes('drehspieß') || nameText.includes('kebab')) return '🥙';
+        if (nameText.includes('pizza')) return '🍕';
+        if (nameText.includes('pide')) return '🍕';
+        if (nameText.includes('schnitzel')) return '🥩';
+        if (nameText.includes('vorspeisen') || nameText.includes('salat')) return '🥗';
+        if (nameText.includes('getränke') || nameText.includes('cola') || nameText.includes('softdrink') || nameText.includes('dessert')) return '🥤';
+        if (nameText.includes('snack') || nameText.includes('pommes')) return '🍟';
+        if (nameText.includes('burger')) return '🍔';
+        if (nameText.includes('pasta') || nameText.includes('nudeln')) return '🍝';
+        return '✨';
+    }
+
+    // 📱 HANDY-VERSION (Bildschirm ist kleiner als 768px):
     if (idText === 'all' || nameText.includes('alle') || nameText.includes('list')) return '✨';
     if (nameText.includes('döner') || nameText.includes('drehspieß') || nameText.includes('kebab')) return '🥙';
-    if (nameText.includes('pizza')) return '🍕';
-    if (nameText.includes('pide')) return '🍕';
+    
+    // HIER ERWEITERT: Beilagen, Süßspeisen, Spezialitäten und Suppen für das Handy hinzugefügt
+    if (nameText.includes('beilage')) return '🍟'; 
+    if (nameText.includes('süßspeise') || nameText.includes('dessert')) return '🍰'; 
+    if (nameText.includes('spezialität') || nameText.includes('special')) return '👑'; 
+    if (nameText.includes('suppe')) return '🥣'; 
+    
+    if (nameText.includes('pizza') || nameText.includes('pide')) return '🍕';
     if (nameText.includes('schnitzel')) return '🥩';
     if (nameText.includes('vorspeisen') || nameText.includes('salat')) return '🥗';
-    if (nameText.includes('getränke') || nameText.includes('cola') || nameText.includes('softdrink') || nameText.includes('dessert')) return '🥤';
+    if (nameText.includes('getränke') || nameText.includes('cola') || nameText.includes('softdrink')) return '🥤';
     if (nameText.includes('snack') || nameText.includes('pommes')) return '🍟';
     if (nameText.includes('burger')) return '🍔';
     if (nameText.includes('pasta') || nameText.includes('nudeln')) return '🍝';
-    return '✨';
+    
+    return '✨'; 
 }
+
+// Tauscht das Döner-Emoji im runden Menü NUR AUF DEM HANDY gegen das Bild aus
+function overwriteMobileDonerIconOnly() {
+    if (window.innerWidth >= 768) return;
+
+    const elements = document.querySelectorAll('div, button, span, a');
+    elements.forEach(el => {
+        if (el.textContent && el.textContent.trim() === 'Drehspieß & Döner') {
+            const parentContainer = el.closest('div');
+            if (parentContainer) {
+                parentContainer.innerHTML = parentContainer.innerHTML.replace('🥙', '<img src="Drehspies-Bild.png.png" alt="" style="display: inline-block !important; width: 20px !important; height: 20px !important; vertical-align: middle !important; margin-bottom: 4px !important;">');
+            }
+        }
+    });
+}
+
+
+if (typeof renderCategories !== 'undefined') {
+    const originalRenderCategories = renderCategories;
+    renderCategories = function() {
+        originalRenderCategories();
+        if (window.innerWidth < 768) {
+            setTimeout(overwriteMobileDonerIconOnly, 50);
+        }
+    };
+}
+
 
 function renderCategories() {
     const container = document.getElementById('category-tabs');
@@ -565,27 +615,27 @@ function openOrderModal(type) {
 
     const nameInput = document.getElementById('pop-cust-name');
     if (nameInput && nameInput.parentElement) {
-        nameInput.parentElement.style.display = "block"; // Name-Container immer sichtbar machen
+        nameInput.parentElement.style.display = "block"; 
     }
 
     
     if (type === "Lieferung") {
-        if (deliveryFields) deliveryFields.style.display = "block"; // Adress- und Zeit-Container anzeigen
+        if (deliveryFields) deliveryFields.style.display = "block"; 
         if (addressInput) {
-            addressInput.parentElement.style.display = "block"; // Einzelnes Adressfeld anzeigen
-            addressInput.required = true;  // Adresse wird zum Pflichtfeld
+            addressInput.parentElement.style.display = "block"; 
+            addressInput.required = true;  
         }
     } else {
-        // Bei Abholung oder Vor Ort: Adressfeld komplett verstecken
-        if (deliveryFields) deliveryFields.style.display = "block"; // Container wegen der Uhrzeit offen lassen
+        
+        if (deliveryFields) deliveryFields.style.display = "block"; 
         if (addressInput) {
-            addressInput.parentElement.style.display = "none";  // Adressfeld verstecken
-            addressInput.required = false; // Adresse ist kein Pflichtfeld mehr
-            addressInput.value = "";       // Inhalt leeren
+            addressInput.parentElement.style.display = "none";  
+            addressInput.required = false; 
+            addressInput.value = "";       
         }
     }
 
-    if (timeInput) timeInput.required = true; // Wunschuhrzeit ist immer ein Pflichtfeld
+    if (timeInput) timeInput.required = true; 
 }
 
 function closeOrderModal() {
@@ -816,7 +866,7 @@ function aktualisiereHeaderStatus() {
 
                 minutenBisOeffnung = (restHeute + 24 + startUhr) * 60;
             } else {
-                // Normaler Wochentag abends -> Öffnet morgen um 10 Uhr
+                
                 minutenBisOeffnung = (restHeute + startUhr) * 60;
             }
         }
@@ -869,3 +919,61 @@ document.addEventListener("DOMContentLoaded", function () {
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'auto';
 }
+
+
+
+function fixDonerIcons() {
+   
+    const catButton = document.getElementById('cat-btn-drehspiess_doener');
+    if (catButton) {
+        catButton.style.display = 'inline-flex';
+        catButton.style.alignItems = 'center';
+        catButton.style.justifyContent = 'center';
+
+        let iconElement = catButton.querySelector('i.fa-solid');
+        if (iconElement) {
+            
+            iconElement.outerHTML = '<img src="Drehspies-Bild.png.png" alt="" style="display: inline-block !important; width: 20px !important; height: 20px !important; margin-right: 5px !important;">';
+        } else {
+            
+            const imgElement = catButton.querySelector('img');
+            if (imgElement) {
+                imgElement.style.setProperty('margin-right', '5px', 'important');
+                imgElement.style.setProperty('width', '20px', 'important');
+                imgElement.style.setProperty('height', '20px', 'important');
+            }
+        }
+    }
+
+    
+    const headings = document.querySelectorAll('h2');
+    headings.forEach(h2 => {
+        if (h2.textContent.includes('Drehspieß & Döner')) {
+            let iconElement = h2.querySelector('i.fa-solid');
+            if (iconElement) {
+                iconElement.outerHTML = '<img src="Drehspies-Bild.png.png" alt="" style="display: inline-block !important; width: 24px !important; height: 24px !important; vertical-align: middle !important; margin-right: 8px !important;">';
+            } else {
+                const imgElement = h2.querySelector('img');
+                if (imgElement) {
+                    imgElement.style.setProperty('width', '24px', 'important');
+                    imgElement.style.setProperty('height', '24px', 'important');
+                    imgElement.style.setProperty('margin-right', '8px', 'important');
+                    imgElement.style.setProperty('vertical-align', 'middle', 'important');
+                }
+            }
+        }
+    });
+}
+
+
+const originalRenderCategories = renderCategories;
+renderCategories = function() {
+    originalRenderCategories();
+    fixDonerIcons();
+};
+
+const originalRenderDishes = renderDishes;
+renderDishes = function() {
+    originalRenderDishes();
+    fixDonerIcons();
+};
