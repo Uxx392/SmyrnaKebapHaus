@@ -44,3 +44,89 @@ body {
 body {
   font-family: 'Inter', sans-serif;
 }
+
+
+
+@media (max-width: 640px) {
+    
+    html, body, main {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    
+    #menu-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        box-sizing: border-box !important;
+    }
+
+    
+    #menu-container .grid {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 10px !important;
+    }
+
+
+    [id^="dish-card-"], .dish-card {
+        padding: 8px !important; 
+        border-radius: 12px !important; 
+        gap: 6px !important;
+    }
+
+
+    [id^="dish-card-"] .w-16, [id^="dish-card-"] .h-16 {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+
+    [id^="dish-card-"] h3 {
+        font-size: 12px !important; 
+        leading: 1.2 !important;
+    }
+    
+    [id^="dish-card-"] p {
+        font-size: 10px !important; 
+    }
+
+
+    div[class*="sauce"], .flex.flex-wrap.gap-1 {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        width: 100% !important;
+        gap: 4px !important;
+    }
+
+
+    div[class*="sauce"] label, div[class*="sauce"] span {
+        font-size: 9px !important;
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+    }
+
+
+    .grid-cols-3, div[class*="grid-cols-3"] {
+        grid-template-cols: repeat(3, 1fr) !important; 
+        gap: 4px !important;
+    }
+
+    .grid-cols-3 button, div[class*="grid-cols-3"] button {
+        padding: 6px 4px !important; 
+        font-size: 10px !important; 
+    }
+
+
+    .grid-cols-3 button img {
+        width: 16px !important;
+        height: 16px !important;
+        margin-bottom: 2px !important;
+    }
+}
