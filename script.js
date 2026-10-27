@@ -171,8 +171,7 @@ function getCategoryEmojiByName(catId, categoryName) {
     const idText = catId.toLowerCase();
     const nameText = categoryName.toLowerCase();
     
-    // 🖥️ DESKTOP-SCHUTZ: Wenn der Bildschirm größer als ein Handy ist (>= 768px),
-    // wird sofort der originale Zustand ausgeführt und alles bleibt unverändert!
+ 
     if (window.innerWidth >= 768) {
         if (idText === 'all' || nameText.includes('alle') || nameText.includes('list')) return '✨';
         if (nameText.includes('döner') || nameText.includes('drehspieß') || nameText.includes('kebab')) return '🥙';
@@ -187,11 +186,11 @@ function getCategoryEmojiByName(catId, categoryName) {
         return '✨';
     }
 
-    // 📱 HANDY-VERSION (Bildschirm ist kleiner als 768px):
+ 
     if (idText === 'all' || nameText.includes('alle') || nameText.includes('list')) return '✨';
     if (nameText.includes('döner') || nameText.includes('drehspieß') || nameText.includes('kebab')) return '🥙';
     
-    // HIER ERWEITERT: Beilagen, Süßspeisen, Spezialitäten und Suppen für das Handy hinzugefügt
+ 
     if (nameText.includes('beilage')) return '🍟'; 
     if (nameText.includes('süßspeise') || nameText.includes('dessert')) return '🍰'; 
     if (nameText.includes('spezialität') || nameText.includes('special')) return '👑'; 
@@ -208,7 +207,7 @@ function getCategoryEmojiByName(catId, categoryName) {
     return '✨'; 
 }
 
-// Tauscht das Döner-Emoji im runden Menü NUR AUF DEM HANDY gegen das Bild aus
+
 function overwriteMobileDonerIconOnly() {
     if (window.innerWidth >= 768) return;
 
@@ -376,40 +375,85 @@ var lastScrolledDishId = null;
 function createDishCard(dish) {
     var customImagePath = "img/" + dish.number + ".jpg";
 
-    
     var allergenText = "";
     if (dish.additivesAndAllergens && dish.additivesAndAllergens.length > 0) {
-        allergenText = ' <sup onclick="openAllergens(' + dish.id + ')" class="text-slate-400 hover:text-orange-500 font-normal text-[10px] ml-1 cursor-pointer select-none" title="Klicken für Erklärung">(' + dish.additivesAndAllergens.join(', ') + ')</sup>'; //meine Webseite!!! Finger Weg !!!... Diese Webseite gehört dem großen, Mächtigen und unbestechlichen Meister Ünal Han
+        allergenText = ' <sup onclick="openAllergens(' + dish.id + ')" class="text-slate-400 hover:text-orange-500 font-normal text-[10px] ml-1 cursor-pointer select-none" title="Klicken für Erklärung">(' + dish.additivesAndAllergens.join(', ') + ')</sup>';
     }
 
     
-    return (
-        '<div id="dish-card-' + dish.id + '" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex space-x-3">' +
-            '<div class="w-20 h-20 rounded-xl overflow-hidden bg-slate-100 flex-shrink-0 flex items-center justify-center border border-slate-100 relative">' +
-                '<img src="' + customImagePath + '" alt="' + dish.name + '" class="w-full h-full object-cover" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
-                '<div class="absolute inset-0 bg-slate-100 flex items-center justify-center text-slate-400 font-semibold text-xs select-none" style="display: none;">Lecker</div>' +
-            '</div>' +
-            '<div class="flex-1 flex flex-col justify-between">' +
-                '<div>' +
-                    '<div class="flex justify-between items-start">' +
-                        '<h3 class="font-bold text-sm text-slate-900 leading-snug">' +
-                            '<span class="text-orange-600 font-mono mr-1">#' + dish.number + '</span> ' + dish.name + allergenText +
-                        '</h3>' +
-                    '</div>' +
-                    '<p class="text-xs text-slate-500 line-clamp-2 mt-1">' + dish.description + '</p>' +
+    var sauceHtml = '';
+    if (dish.category === "drehspiess_doener") { 
+        sauceHtml = 
+            '<div class="flex flex-row items-center gap-2 w-full mt-1">' +
+                '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">Saucen:</span>' +
+                '<div class="flex flex-wrap gap-1 items-center">' +
+                    // Knoblauchsauce
+                    '<label class="relative flex items-center border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-medium cursor-pointer bg-white text-slate-700 whitespace-nowrap">' +
+                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Knoblauchsauce" checked class="sr-only peer" onchange="this.parentElement.classList.toggle(\'border-emerald-500\', this.checked); this.parentElement.classList.toggle(\'bg-emerald-50/30\', this.checked);">' +
+                        '<span>Knoblauch</span>' +
+                        '<i class="fa-solid fa-check text-emerald-500 ml-1 hidden peer-checked:inline"></i>' +
+                    '</label>' +
+                    // Joghurtsauce
+                    '<label class="relative flex items-center border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-medium cursor-pointer bg-white text-slate-700 whitespace-nowrap">' +
+                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Joghurtsauce" class="sr-only peer" onchange="this.parentElement.classList.toggle(\'border-emerald-500\', this.checked); this.parentElement.classList.toggle(\'bg-emerald-50/30\', this.checked);">' +
+                        '<span>Joghurt</span>' +
+                        '<i class="fa-solid fa-check text-emerald-500 ml-1 hidden peer-checked:inline"></i>' +
+                    '</label>' +
+                    // Scharfe Sauce
+                    '<label class="relative flex items-center border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-medium cursor-pointer bg-white text-slate-700 whitespace-nowrap">' +
+                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Scharf" class="sr-only peer" onchange="this.parentElement.classList.toggle(\'border-emerald-500\', this.checked); this.parentElement.classList.toggle(\'bg-emerald-50/30\', this.checked);">' +
+                        '<span>Scharf</span>' +
+                        '<i class="fa-solid fa-check text-emerald-500 ml-1 hidden peer-checked:inline"></i>' +
+                    '</label>' +
                 '</div>' +
-                '<div class="flex items-center justify-between mt-3 pt-2 border-t border-slate-100">' +
-                    '<span class="font-bold text-slate-900 text-sm">' + dish.price.toFixed(2).replace('.', ',') + ' ' + CONFIG.currency + '</span>' +
-                    '<button onclick="addToCart(' + dish.id + ')" class="bg-orange-50 hover:bg-orange-500 text-orange-600 hover:text-white border border-orange-200 hover:border-orange-500 font-semibold px-3 py-1.5 rounded-lg text-xs transition flex items-center space-x-1">' +
-                        '<i class="fa-solid fa-plus"></i>' +
+            '</div>';
+    }
+
+    
+    var commentHtml = 
+        '<div class="w-full mt-1.5">' +
+            '<input type="text" id="comment-' + dish.id + '" placeholder="Anmerkung..." ' +
+                   'class="w-full text-[10px] bg-slate-50 border border-slate-200 rounded px-2 py-0.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:border-slate-300 transition">' +
+        '</div>';
+
+    return (
+        '<div id="dish-card-' + dish.id + '" class="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col space-y-2 w-full max-w-full box-border overflow-hidden">' +
+            
+            '<!-- Zeile 1: Bild links, Beschreibung rechts -->' +
+            '<div class="flex space-x-3 items-start">' +
+                '<div class="w-16 h-16 rounded-xl overflow-hidden bg-slate-100 flex-shrink-0 flex items-center justify-center border border-slate-100 relative">' +
+                    '<img src="' + customImagePath + '" alt="' + dish.name + '" class="w-full h-full object-cover" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+                    '<div class="absolute inset-0 bg-slate-100 flex items-center justify-center text-slate-400 font-semibold text-[10px] select-none" style="display: none;">Lecker</div>' +
+                '</div>' +
+                '<div class="flex-1 min-w-0">' +
+                    '<h3 class="font-bold text-sm text-slate-900 leading-snug break-words">' +
+                        '<span class="text-orange-600 font-mono mr-1">#' + dish.number + '</span> ' + dish.name + allergenText +
+                    '</h3>' +
+                    '<p class="text-xs text-slate-500 line-clamp-2 mt-0.5">' + dish.description + '</p>' +
+                '</div>' +
+            '</div>' +
+
+            '<!-- Zeile 2: Flex-col auf Mobilgeräten, flex-row auf größeren Bildschirmen -->' +
+            '<div class="flex flex-col sm:flex-row sm:justify-between sm:items-end border-t border-slate-100 pt-2 w-full gap-2">' +
+                
+                '<!-- Unten Links: Saucen & Anmerkung -->' +
+                '<div class="flex-1 min-w-0 w-full">' +
+                    sauceHtml +
+                    commentHtml +
+                '</div>' +
+
+                '<!-- Unten Rechts: Preis und Button fließen auf Mobilgeräten sauber untereinander -->' +
+                '<div class="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-end gap-2 sm:space-y-1 flex-shrink-0 w-full sm:w-auto pt-1 sm:pt-0">' +
+                    '<span class="font-bold text-slate-900 text-xs whitespace-nowrap">' + dish.price.toFixed(2).replace('.', ',') + ' ' + (typeof CONFIG !== "undefined" ? CONFIG.currency : '€') + '</span>' +
+                    '<button onclick="addToCart(' + dish.id + ')" class="bg-orange-50 hover:bg-orange-500 text-orange-600 hover:text-white border border-orange-200 hover:border-orange-500 font-semibold px-3 py-1 rounded-lg text-[10px] transition text-center whitespace-nowrap">' +
                         '<span>Hinzufügen</span>' +
                     '</button>' +
                 '</div>' +
+
             '</div>' +
         '</div>'
     );
 }
-
 
 function openAllergens(dishId) {
     lastScrolledDishId = dishId;
@@ -447,38 +491,110 @@ function filterDishes() {
 }
 
 function addToCart(dishId) {
-    const dish = CONFIG.dishes.find(d => d.id === dishId);
-    if (!dish) return;
+    // 1. Suche das Gericht über die numerische ID direkt aus deiner CONFIG.dishes-Liste
+    const searchId = Number(dishId);
+    
+    
+    const dish = (typeof CONFIG !== "undefined" && CONFIG.dishes) 
+        ? CONFIG.dishes.find(item => Number(item.id) === searchId) 
+        : null;
 
-    const existingIndex = cart.findIndex(item => item.id === dishId);
-    if (existingIndex > -1) {
-        cart[existingIndex].quantity += 1;
+    if (!dish) {
+        console.error("Gericht wurde in der Liste 'CONFIG.dishes' nicht gefunden! Gesuchte ID: " + dishId);
+        return;
+    }
+
+    
+    const allSaucesForDish = document.querySelectorAll(`input[name="sauce-${dishId}"]`);
+    const checkedSauces = document.querySelectorAll(`input[name="sauce-${dishId}"]:checked`);
+    
+    let sauce = null;
+
+    if (allSaucesForDish.length > 0) {
+        if (checkedSauces.length === 0) {
+            alert("Bitte wählen Sie mindestens eine Sauce aus!");
+            return; 
+        }
+        const sauceArray = [];
+        checkedSauces.forEach(checkbox => sauceArray.push(checkbox.value));
+        sauce = sauceArray.join(" + ");
+    }
+
+    
+    const commentElement = document.getElementById(`comment-${dishId}`);
+    const comment = commentElement ? commentElement.value.trim() : "";
+
+    
+    const cartKey = `${dishId}-${sauce || ''}-${comment}`;
+    const existingItem = cart.find(item => item.cartKey === cartKey);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
     } else {
         cart.push({
+            cartKey: cartKey,
             id: dish.id,
-            number: dish.number,
             name: dish.name,
-            price: dish.price,
+            price: dish.price, 
+            sauce: sauce,
+            comment: comment,
             quantity: 1
         });
     }
+
+    if (typeof saveCart === "function") saveCart();
     updateCartUI();
 }
 
-function updateQuantity(dishId, change) {
-    const item = cart.find(i => i.id === dishId);
-    if (!item) return;
-
-    item.quantity += change;
-    if (item.quantity <= 0) {
-        cart = cart.filter(i => i.id !== dishId);
+function updateQuantity(cartKey, change) {
+    
+    const itemIndex = cart.findIndex(item => item.cartKey === cartKey);
+    
+    if (itemIndex > -1) {
+        cart[itemIndex].quantity += change;
+        
+    
+        if (cart[itemIndex].quantity <= 0) {
+            cart.splice(itemIndex, 1);
+        }
+        
+    
+        if (typeof saveCart === "function") saveCart();
+        
+    
+        updateCartUI();
     }
-    updateCartUI();
 }
-
 function clearCart() {
+    // 1. Array leeren
     cart = [];
-    updateCartUI();
+    
+    
+    if (typeof saveCart === "function") {
+        try {
+            saveCart();
+        } catch (e) {
+            console.error("Fehler in saveCart():", e);
+        }
+    }
+    
+    
+    if (typeof updateCartUI === "function") {
+        try {
+            updateCartUI();
+        } catch (e) {
+            console.error("Fehler in updateCartUI():", e);
+            // NOTFALL-FALLBACK: Falls updateCartUI abstürzt, leeren wir die Box manuell
+            const container = document.getElementById("cart-items-container");
+            if (container) container.innerHTML = "";
+            
+            const total = document.getElementById("total-price");
+            if (total) total.textContent = "0,00 €";
+            
+            const subtotal = document.getElementById("subtotal-price");
+            if (subtotal) subtotal.textContent = "0,00 €";
+        }
+    }
 }
 
 function updateCartUI() {
@@ -500,17 +616,26 @@ function updateCartUI() {
             subtotal += itemTotal;
             totalItems += item.quantity;
 
+            // Hier bauen wir den Text für die ausgewählten Extras zusammen
+            let extrasHtml = '';
+            if (item.sauce) extrasHtml += `<div>• Sauce: ${item.sauce}</div>`;
+            if (item.side) extrasHtml += `<div>• Beilage: ${item.side}</div>`;
+            if (item.comment) extrasHtml += `<div class="italic text-slate-400">• Anm.: "${item.comment}"</div>`;
+
             html += `
                 <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                     <div class="flex-1 pr-2">
                         <div class="font-semibold text-xs text-slate-800">${item.name}</div>
-                        <div class="text-[11px] text-slate-500">${item.price.toFixed(2).replace('.', ',')} ${CONFIG.currency}</div>
+                        <!-- Hier werden die Extras klein darunter angezeigt -->
+                        ${extrasHtml ? `<div class="text-[10px] text-slate-500 mt-0.5 space-y-px">${extrasHtml}</div>` : ''}
+                        <div class="text-[11px] text-slate-400 mt-1">${item.price.toFixed(2).replace('.', ',')} ${CONFIG.currency}</div>
                     </div>
                     <div class="flex items-center space-x-2">
                         <div class="flex items-center border border-slate-300 rounded-lg bg-white overflow-hidden">
-                            <button onclick="updateQuantity(${item.id}, -1)" class="px-2 py-0.5 text-slate-600 hover:bg-slate-100 text-xs font-bold">-</button>
+                            <!-- WICHTIG: Hier wird jetzt '${item.cartKey}' in Anführungszeichen übergeben -->
+                            <button onclick="updateQuantity('${item.cartKey}', -1)" class="px-2 py-0.5 text-slate-600 hover:bg-slate-100 text-xs font-bold">-</button>
                             <span class="px-2 text-xs font-semibold text-slate-800">${item.quantity}</span>
-                            <button onclick="updateQuantity(${item.id}, 1)" class="px-2 py-0.5 text-slate-600 hover:bg-slate-100 text-xs font-bold">+</button>
+                            <button onclick="updateQuantity('${item.cartKey}', 1)" class="px-2 py-0.5 text-slate-600 hover:bg-slate-100 text-xs font-bold">+</button>
                         </div>
                         <span class="text-xs font-bold text-slate-900 w-12 text-right">${itemTotal.toFixed(2).replace('.', ',')} ${CONFIG.currency}</span>
                     </div>
@@ -535,7 +660,6 @@ function updateCartUI() {
         badge.classList.add('hidden');
     }
 }
-
 
 let isWhatsAppFieldsVisible = false;
 
@@ -643,7 +767,7 @@ function closeOrderModal() {
     if (modal) modal.classList.add('hidden');
 }
 
-function sendPopOrderWhatsApp() {
+ function sendPopOrderWhatsApp() {
     const orderType = document.getElementById('pop-order-type').value;
     const nameInput = document.getElementById('pop-cust-name');
     const addressInput = document.getElementById('pop-cust-address');
@@ -666,7 +790,6 @@ function sendPopOrderWhatsApp() {
     if (!isWhatsAppFieldsVisible) {
         if (deliveryFields) deliveryFields.style.display = "block";
         if (nameInput && nameInput.parentElement) nameInput.parentElement.style.display = "block";
-        
         
         if (orderType === "Lieferung") {
             if (addressInput && addressInput.parentElement) {
@@ -717,7 +840,22 @@ function sendPopOrderWhatsApp() {
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         const formattedPrice = itemTotal.toFixed(2).replace('.', ',') + " " + CONFIG.currency;
-        cartItemsText += `• [${item.number}] ${item.quantity}x ${item.name} (${formattedPrice})\n`;
+        
+        // Hauptzeile für das Gericht (falls item.number nicht existiert, wird der Fall abgefangen)
+        const dishNumber = item.number ? `[${item.number}] ` : "";
+        cartItemsText += `• ${dishNumber}${item.quantity}x ${item.name} (${formattedPrice})\n`;
+        
+        // Saucen, Beilagen und Anmerkungen für WhatsApp formatieren
+        if (item.sauce) {
+            cartItemsText += ` ↳ Sauce: ${item.sauce}\n`;
+        }
+        if (item.side) {
+            cartItemsText += ` ↳ Beilage: ${item.side}\n`;
+        }
+        if (item.comment) {
+            cartItemsText += ` ↳ Anm.: "${item.comment}"\n`;
+        }
+
         totalSum += itemTotal;
     });
 
@@ -749,12 +887,10 @@ function sendPopOrderWhatsApp() {
     window.open(whatsappUrl, '_blank');
     closeOrderModal();
     
-    
     if (typeof clearCart === "function") {
         clearCart();
     }
 }
-
 function callRestaurantDirectly() {
     if (!CONFIG.phone) {
         alert("Es wurde keine Telefonnummer hinterlegt.");
