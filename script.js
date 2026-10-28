@@ -25,24 +25,24 @@ const CONFIG = {
 
 dishes: [
        // --- DREHSPIEß & DÖNER ---
-    { id: 1, number: "1", name: "Drehspießfleisch", description: "Drehspießfleisch mit Salat und Soße in der Fladenbrot-Tasche", price: 7.50, category: "drehspiess_doener", image: "images/1.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "26"] },
-    { id: 2, number: "2", name: "Weichkäse-Sandwich (ohne Fleisch)", description: "Weichkäse, Salat und Soße in der Fladenbrot-Tasche", price: 6.00, category: "drehspiess_doener", image: "images/2.jpg", additivesAndAllergens: ["A", "C", "G","1","2","4"] },
-    { id: 3, number: "3", name: "Drehspießfleisch-Box Mini", description: "Mit Pommes Frites und Soße in der Box", price: 6.50, category: "drehspiess_doener", image: "images/3.jpg", additivesAndAllergens: ["A", "C", "G","1","2","4","26"] },
-    { id: 4, number: "4", name: "Drehspießfleisch-Box Maxi", description: "Mit Pommes Frites und Soße in der Box", price: 7.50, category: "drehspiess_doener", image: "images/4.jpg", additivesAndAllergens: ["A", "C", "G","1","2","4","26"] },
-    { id: 5, number: "5", name: "Falafel Sandwich (ohne Fleisch)", description: "Frittierte Erbsenteigbällchen, Salat und Soße in der Fladenbrot-Tasche", price: 6.50, category: "drehspiess_doener", image: "images/5.jpg", additivesAndAllergens: ["A", "C", "G","1","2","4","H"] },
+    { id: 1, number: "1", name: "Drehspießfleisch", description: "Drehspießfleisch mit Salat und Soße in der Fladenbrot-Tasche", price: 7.50, category: "drehspiess_doener", image: "images/1.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "26"], hasSauces: true },
+    { id: 2, number: "2", name: "Weichkäse-Sandwich (ohne Fleisch)", description: "Weichkäse, Salat und Soße in der Fladenbrot-Tasche", price: 6.00, category: "drehspiess_doener", image: "images/2.jpg", additivesAndAllergens: ["A", "C", "G","1","2","4"], hasSauces: true },
+    { id: 3, number: "3", name: "Drehspießfleisch-Box Mini", description: "Mit Pommes Frites und Soße in der Box", price: 6.50, category: "drehspiess_doener", image: "images/3.jpg", additivesAndAllergens: ["A", "C", "G","1","2","4","26"], hasSauces: true },
+    { id: 4, number: "4", name: "Drehspießfleisch-Box Maxi", description: "Mit Pommes Frites und Soße in der Box", price: 7.50, category: "drehspiess_doener", image: "images/4.jpg", additivesAndAllergens: ["A", "C", "G","1","2","4","26"], hasSauces: true },
+    { id: 5, number: "5", name: "Falafel Sandwich (ohne Fleisch)", description: "Frittierte Erbsenteigbällchen, Salat und Soße in der Fladenbrot-Tasche", price: 6.50, category: "drehspiess_doener", image: "images/5.jpg", additivesAndAllergens: ["A", "C", "G","1","2","4","H"], hasSauces: true },
     { id: 6, number: "6", name: "Nuggets-Box", description: "6 Chicken Nuggets mit Pommes Frites in der Box", price: 7.50, category: "drehspiess_doener", image: "images/6.jpg", additivesAndAllergens: ["A","C","G","1","2","4"] },
-    { id: 7, number: "7", name: "Nuggets", description: "7 Chicken Nuggets mit Soße", price: 6.50, category: "drehspiess_doener", image: "images/7.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"] },
-    { id: 8, number: "8", name: "Nuggets-Teller", description: "6 Chicken Nuggets mit Pommes, Salat und Soße", price: 12.00, category: "drehspiess_doener", image: "images/8.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"] },
-    { id: 9, number: "9", name: "Lahmacun", description: "Türkische Pizza gerollt mit Salat und Soße", price: 6.50, category: "drehspiess_doener", image: "images/9.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16"] },
-    { id: 10, number: "10", name: "Lahmacun mit Fleisch", description: "Türkische Pizza mit Drehspießfleisch, Salat und Soße", price: 8.50, category: "drehspiess_doener", image: "images/10.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16", "26"] },
-    { id: 11, number: "11", name: "Drehspießfleisch Dürüm", description: "Mit Salat und Soße im dünnen, gerollten Fladenbrot", price: 8.00, category: "drehspiess_doener", image: "images/11.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16", "26"] },
+    { id: 7, number: "7", name: "Nuggets", description: "7 Chicken Nuggets mit Soße", price: 6.50, category: "drehspiess_doener", image: "images/7.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"], hasSauces: true },
+    { id: 8, number: "8", name: "Nuggets-Teller", description: "6 Chicken Nuggets mit Pommes, Salat und Soße", price: 12.00, category: "drehspiess_doener", image: "images/8.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"], hasSauces: true },
+    { id: 9, number: "9", name: "Lahmacun", description: "Türkische Pizza gerollt mit Salat und Soße", price: 6.50, category: "drehspiess_doener", image: "images/9.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16"], hasSauces: true },
+    { id: 10, number: "10", name: "Lahmacun mit Fleisch", description: "Türkische Pizza mit Drehspießfleisch, Salat und Soße", price: 8.50, category: "drehspiess_doener", image: "images/10.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16", "26"], hasSauces: true },
+    { id: 11, number: "11", name: "Drehspießfleisch Dürüm", description: "Mit Salat und Soße im dünnen, gerollten Fladenbrot", price: 8.00, category: "drehspiess_doener", image: "images/11.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16", "26"], hasSauces: true },
     // --- SALATE ---
-    { id: 12, number: "12", name: "Azize Salat", description: "Gemischter Salat, Tomaten, Gurken, Mozzarella und Fleisch vom Hähnchendrehspieß", price: 12.50, category: "salate", image: "images/12.jpg", additivesAndAllergens: ["1", "2", "4", "C", "G"] },
-    { id: 13, number: "13", name: "Habisch Salat", description: "Gemischter Salat mit Drehspießfleisch, Tomaten, Gurken, Zwiebeln, Mais und Mozzarella", price: 12.50, category: "salate", image: "images/13.jpg", additivesAndAllergens: ["1", "2", "4", "C", "G", "26"] },
-    { id: 14, number: "14", name: "Italia Salat", description: "Gemischter Salat, Tomaten, Gurken, Edamer, Thunfisch, Zwiebeln und Ei", price: 10.00, category: "salate", image: "images/14.jpg", additivesAndAllergens: ["1", "2", "4", "C", "D", "G"] },
-    { id: 15, number: "15", name: "Vegetarisch Salat", description: "Gemischter Salat mit Tomaten, Gurken, gebratenen Pilzen, Zwiebeln und Paprika", price: 11.00, category: "salate", image: "images/15.jpg", additivesAndAllergens: ["1", "2", "4", "C", "G"] },
-    { id: 16, number: "16", name: "Fero Salat groß", description: "Gemischter Salat, Gurken, Tomaten, Zwiebel und Mais", price: 7.00, category: "salate", image: "images/16.jpg", additivesAndAllergens: ["1", "2" , "4", "C" ,"G"]  },
-    { id: 17, number: "17", name: "Fero Salat klein", description: "Gemischter Salat, Gurken, Tomaten, Zwiebel und Mais", price: 3.50, category: "salate", image: "images/17.jpg", additivesAndAllergens: ["1", "2", "4", "C", "G"] },
+    { id: 12, number: "12", name: "Azize Salat", description: "Gemischter Salat, Tomaten, Gurken, Mozzarella und Fleisch vom Hähnchendrehspieß", price: 12.50, category: "salate", image: "images/12.jpg", additivesAndAllergens: ["1", "2", "4", "C", "G"], hasSauces: true },
+    { id: 13, number: "13", name: "Habisch Salat", description: "Gemischter Salat mit Drehspießfleisch, Tomaten, Gurken, Zwiebeln, Mais und Mozzarella", price: 12.50, category: "salate", image: "images/13.jpg", additivesAndAllergens: ["1", "2", "4", "C", "G", "26"], hasSauces: true },
+    { id: 14, number: "14", name: "Italia Salat", description: "Gemischter Salat, Tomaten, Gurken, Edamer, Thunfisch, Zwiebeln und Ei", price: 10.00, category: "salate", image: "images/14.jpg", additivesAndAllergens: ["1", "2", "4", "C", "D", "G"], hasSauces: true },
+    { id: 15, number: "15", name: "Vegetarisch Salat", description: "Gemischter Salat mit Tomaten, Gurken, gebratenen Pilzen, Zwiebeln und Paprika", price: 11.00, category: "salate", image: "images/15.jpg", additivesAndAllergens: ["1", "2", "4", "C", "G"], hasSauces: true },
+    { id: 16, number: "16", name: "Fero Salat groß", description: "Gemischter Salat, Gurken, Tomaten, Zwiebel und Mais", price: 7.00, category: "salate", image: "images/16.jpg", additivesAndAllergens: ["1", "2" , "4", "C" ,"G"], hasSauces: true  },
+    { id: 17, number: "17", name: "Fero Salat klein", description: "Gemischter Salat, Gurken, Tomaten, Zwiebel und Mais", price: 3.50, category: "salate", image: "images/17.jpg", additivesAndAllergens: ["1", "2", "4", "C", "G"], hasSauces: true },
     // --- NUDELN ---
     { id: 18, number: "18", name: "Spaghetti Napoli", description: "in Tomatensoße mit Basilikum, Grana Padano", price: 9.00, category: "nudeln", image: "images/18.jpg", additivesAndAllergens: ["A", "C" ,"G" ,"1", "2", "4"] },
     { id: 19, number: "19", name: "Penne Arrabiata", description: "In Tomatensoße mit Knoblauch, frischen Tomaten, Chili", price: 10.00, category: "nudeln", image: "images/19.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"] },
@@ -102,10 +102,10 @@ dishes: [
     { id: 67, number: "67", name: "Bruschetta Mozzarella", description: "3 Stück, Brot mit frischen Tomaten, Knoblauch, hausgemachtem Pesto, Oliven, Mozzarella, Grana Padano und Balsamicocreme", price: 9.50, category: "unsere_spezialitaeten", image: "images/67.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "6"] },
 
     // --- TÜRKISCHE SPEZIALITÄTEN ---
-    { id: 68, number: "68", name: "Döner Teller", description: "Drehspießfleisch mit Pommes frites, Salat oder Reis", price: 13.00, category: "tuerkische_spezialitaeten", image: "images/68.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "26"] },
-    { id: 69, number: "69", name: "Lahmacunteller", description: "2 Stück türkische Pizza mit Salatbeilage", price: 12.00, category: "tuerkische_spezialitaeten", image: "images/69.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16"] },
-    { id: 70, number: "70", name: "Drehspießfleisch Lahmacunteller", description: "2 Stück türkische Pizza mit Drehspießfleisch und Salatbeilage", price: 13.50, category: "tuerkische_spezialitaeten", image: "images/70.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16", "26"] },
-    { id: 71, number: "71", name: "Falafelteller (ohne Fleisch)", description: "Frittierte Erbsenteigbällchen mit Salat und Soße", price: 12.00, category: "tuerkische_spezialitaeten", image: "images/71.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"] },
+    { id: 68, number: "68", name: "Döner Teller", description: "Drehspießfleisch mit Pommes frites, Salat oder Reis", price: 13.00, category: "tuerkische_spezialitaeten", image: "images/68.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "26"], hasSauces: true },
+    { id: 69, number: "69", name: "Lahmacunteller", description: "2 Stück türkische Pizza mit Salatbeilage", price: 12.00, category: "tuerkische_spezialitaeten", image: "images/69.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16"], hasSauces: true },
+    { id: 70, number: "70", name: "Drehspießfleisch Lahmacunteller", description: "2 Stück türkische Pizza mit Drehspießfleisch und Salatbeilage", price: 13.50, category: "tuerkische_spezialitaeten", image: "images/70.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "16", "26"], hasSauces: true },
+    { id: 71, number: "71", name: "Falafelteller (ohne Fleisch)", description: "Frittierte Erbsenteigbällchen mit Salat und Soße", price: 12.00, category: "tuerkische_spezialitaeten", image: "images/71.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"], hasSauces: true },
     { id: 72, number: "72", name: "Menemen (ohne Fleisch)", description: "Traditionelle türkische Eierspeise mit frischen Tomaten und Peperoni", price: 12.00, category: "tuerkische_spezialitaeten", image: "images/72.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"] },
     // --- SUPPEN ---
     { id: 73, number: "73", name: "Orientalische Linsensuppe", description: "Mercimek Çorbası", price: 7.00, category: "suppen", image: "images/73.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4", "H"] },
@@ -372,6 +372,30 @@ function renderDishes() {
 
 var lastScrolledDishId = null;
 
+// Hilfsfunktion für die gegenseitige Saucen-Logik und das Styling
+function handleSauceChange(input, dishId) {
+    var isOhne = (input.value === "Ohne");
+    var checkboxes = document.querySelectorAll('input[name="sauce-' + dishId + '"]');
+    
+    checkboxes.forEach(function(cb) {
+        if (isOhne && cb.value !== "Ohne") {
+            // Wenn "Ohne" gewählt wird, alle anderen abwählen
+            cb.checked = false;
+        } else if (!isOhne && cb.value === "Ohne" && input.checked) {
+            // Wenn eine normale Sauce gewählt wird, "Ohne" abwählen
+            cb.checked = false;
+        }
+        
+        // Visuelles Styling (Rahmen und Hintergrund) für jedes Label aktualisieren
+        var label = cb.parentElement;
+        if (cb.checked) {
+            label.classList.add('border-emerald-500', 'bg-emerald-50/30');
+        } else {
+            label.classList.remove('border-emerald-500', 'bg-emerald-50/30');
+        }
+    });
+}
+
 function createDishCard(dish) {
     var customImagePath = "img/" + dish.number + ".jpg";
 
@@ -380,36 +404,41 @@ function createDishCard(dish) {
         allergenText = ' <sup onclick="openAllergens(' + dish.id + ')" class="text-slate-400 hover:text-orange-500 font-normal text-[10px] ml-1 cursor-pointer select-none" title="Klicken für Erklärung">(' + dish.additivesAndAllergens.join(', ') + ')</sup>';
     }
 
-    
     var sauceHtml = '';
-    if (dish.category === "drehspiess_doener") { 
+    // ÄNDERUNG: Schaltet die Saucen jetzt individuell pro Gericht ein/aus
+    if (dish.hasSauces === true) { 
         sauceHtml = 
             '<div class="flex flex-row items-center gap-2 w-full mt-1">' +
                 '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">Saucen:</span>' +
-                '<div class="flex flex-wrap gap-1 items-center">' +
+                '<div class="flex gap-1 items-center flex-1" style="display: flex !important; flex-wrap: nowrap !important;">' +
                     // Knoblauchsauce
-                    '<label class="relative flex items-center border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-medium cursor-pointer bg-white text-slate-700 whitespace-nowrap">' +
-                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Knoblauchsauce" checked class="sr-only peer" onchange="this.parentElement.classList.toggle(\'border-emerald-500\', this.checked); this.parentElement.classList.toggle(\'bg-emerald-50/30\', this.checked);">' +
+                    '<label class="relative flex items-center border border-emerald-500 rounded px-1.5 py-0.5 text-[10px] font-medium cursor-pointer bg-emerald-50/30 text-slate-700 whitespace-nowrap">' +
+                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Knoblauchsauce" checked class="sr-only peer" onchange="handleSauceChange(this, ' + dish.id + ')">' +
                         '<span>Knoblauch</span>' +
                         '<i class="fa-solid fa-check text-emerald-500 ml-1 hidden peer-checked:inline"></i>' +
                     '</label>' +
                     // Joghurtsauce
                     '<label class="relative flex items-center border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-medium cursor-pointer bg-white text-slate-700 whitespace-nowrap">' +
-                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Joghurtsauce" class="sr-only peer" onchange="this.parentElement.classList.toggle(\'border-emerald-500\', this.checked); this.parentElement.classList.toggle(\'bg-emerald-50/30\', this.checked);">' +
+                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Joghurtsauce" class="sr-only peer" onchange="handleSauceChange(this, ' + dish.id + ')">' +
                         '<span>Joghurt</span>' +
                         '<i class="fa-solid fa-check text-emerald-500 ml-1 hidden peer-checked:inline"></i>' +
                     '</label>' +
                     // Scharfe Sauce
                     '<label class="relative flex items-center border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-medium cursor-pointer bg-white text-slate-700 whitespace-nowrap">' +
-                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Scharf" class="sr-only peer" onchange="this.parentElement.classList.toggle(\'border-emerald-500\', this.checked); this.parentElement.classList.toggle(\'bg-emerald-50/30\', this.checked);">' +
+                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Scharf" class="sr-only peer" onchange="handleSauceChange(this, ' + dish.id + ')">' +
                         '<span>Scharf</span>' +
+                        '<i class="fa-solid fa-check text-emerald-500 ml-1 hidden peer-checked:inline"></i>' +
+                    '</label>' +
+                    // Ohne Sauce Option
+                    '<label class="relative flex items-center border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-medium cursor-pointer bg-white text-slate-700 whitespace-nowrap">' +
+                        '<input type="checkbox" name="sauce-' + dish.id + '" value="Ohne" class="sr-only peer" onchange="handleSauceChange(this, ' + dish.id + ')">' +
+                        '<span>Ohne</span>' +
                         '<i class="fa-solid fa-check text-emerald-500 ml-1 hidden peer-checked:inline"></i>' +
                     '</label>' +
                 '</div>' +
             '</div>';
     }
 
-    
     var commentHtml = 
         '<div class="w-full mt-1.5">' +
             '<input type="text" id="comment-' + dish.id + '" placeholder="Anmerkung..." ' +
@@ -442,7 +471,7 @@ function createDishCard(dish) {
                     commentHtml +
                 '</div>' +
 
-                '<!-- Unten Rechts: Preis und Button fließen auf Mobilgeräten sauber untereinander -->' +
+                '<!-- Unten Rechts: Preis und Button -->' +
                 '<div class="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-end gap-2 sm:space-y-1 flex-shrink-0 w-full sm:w-auto pt-1 sm:pt-0">' +
                     '<span class="font-bold text-slate-900 text-xs whitespace-nowrap">' + dish.price.toFixed(2).replace('.', ',') + ' ' + (typeof CONFIG !== "undefined" ? CONFIG.currency : '€') + '</span>' +
                     '<button onclick="addToCart(' + dish.id + ')" class="bg-orange-50 hover:bg-orange-500 text-orange-600 hover:text-white border border-orange-200 hover:border-orange-500 font-semibold px-3 py-1 rounded-lg text-[10px] transition text-center whitespace-nowrap">' +
@@ -454,6 +483,7 @@ function createDishCard(dish) {
         '</div>'
     );
 }
+
 
 function openAllergens(dishId) {
     lastScrolledDishId = dishId;
