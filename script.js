@@ -296,7 +296,7 @@ function selectCategory(catId) {
             const text = btn.querySelector('.cat-text');
             if (circle) { circle.classList.replace('border-orange-500', 'border-slate-700'); }
             if (text) { 
-                // Setzt inaktive Texte sauber auf die lesbare Standardfarbe zurück
+                
                 text.style.color = '#64748b';
                 text.style.fontWeight = '600';
             }
@@ -313,7 +313,7 @@ function selectCategory(catId) {
             const text = activeBtn.querySelector('.cat-text');
             if (circle) { circle.classList.replace('border-slate-700', 'border-orange-500'); }
             if (text) { 
-                // Setzt die aktive Kategorie auf ein gut sichtbares, kräftiges Orange
+                
                 text.style.color = '#ea580c';
                 text.style.fontWeight = '700';
             }
@@ -372,21 +372,21 @@ function renderDishes() {
 
 var lastScrolledDishId = null;
 
-// Hilfsfunktion für die gegenseitige Saucen-Logik und das Styling
+
 function handleSauceChange(input, dishId) {
     var isOhne = (input.value === "Ohne");
     var checkboxes = document.querySelectorAll('input[name="sauce-' + dishId + '"]');
     
     checkboxes.forEach(function(cb) {
         if (isOhne && cb.value !== "Ohne") {
-            // Wenn "Ohne" gewählt wird, alle anderen abwählen
+            
             cb.checked = false;
         } else if (!isOhne && cb.value === "Ohne" && input.checked) {
-            // Wenn eine normale Sauce gewählt wird, "Ohne" abwählen
+            
             cb.checked = false;
         }
         
-        // Visuelles Styling (Rahmen und Hintergrund) für jedes Label aktualisieren
+        
         var label = cb.parentElement;
         if (cb.checked) {
             label.classList.add('border-emerald-500', 'bg-emerald-50/30');
@@ -405,7 +405,7 @@ function createDishCard(dish) {
     }
 
     var sauceHtml = '';
-    // ÄNDERUNG: Schaltet die Saucen jetzt individuell pro Gericht ein/aus
+    
     if (dish.hasSauces === true) { 
         sauceHtml = 
             '<div class="flex flex-row items-center gap-2 w-full mt-1">' +
@@ -521,7 +521,7 @@ function filterDishes() {
 }
 
 function addToCart(dishId) {
-    // 1. Suche das Gericht über die numerische ID direkt aus deiner CONFIG.dishes-Liste
+    
     const searchId = Number(dishId);
     
     
@@ -596,7 +596,7 @@ function updateQuantity(cartKey, change) {
     }
 }
 function clearCart() {
-    // 1. Array leeren
+    
     cart = [];
     
     
@@ -614,7 +614,7 @@ function clearCart() {
             updateCartUI();
         } catch (e) {
             console.error("Fehler in updateCartUI():", e);
-            // NOTFALL-FALLBACK: Falls updateCartUI abstürzt, leeren wir die Box manuell
+            
             const container = document.getElementById("cart-items-container");
             if (container) container.innerHTML = "";
             
@@ -646,7 +646,7 @@ function updateCartUI() {
             subtotal += itemTotal;
             totalItems += item.quantity;
 
-            // Hier bauen wir den Text für die ausgewählten Extras zusammen
+            
             let extrasHtml = '';
             if (item.sauce) extrasHtml += `<div>• Sauce: ${item.sauce}</div>`;
             if (item.side) extrasHtml += `<div>• Beilage: ${item.side}</div>`;
@@ -871,11 +871,11 @@ function closeOrderModal() {
         const itemTotal = item.price * item.quantity;
         const formattedPrice = itemTotal.toFixed(2).replace('.', ',') + " " + CONFIG.currency;
         
-        // Hauptzeile für das Gericht (falls item.number nicht existiert, wird der Fall abgefangen)
+        
         const dishNumber = item.number ? `[${item.number}] ` : "";
         cartItemsText += `• ${dishNumber}${item.quantity}x ${item.name} (${formattedPrice})\n`;
         
-        // Saucen, Beilagen und Anmerkungen für WhatsApp formatieren
+        
         if (item.sauce) {
             cartItemsText += ` ↳ Sauce: ${item.sauce}\n`;
         }
@@ -930,7 +930,7 @@ function callRestaurantDirectly() {
     
     window.location.href = `tel:${CONFIG.phone.trim()}`;
     
-    // Schließt das Pop-up-Fenster
+    
     closeOrderModal();
     
     
@@ -996,7 +996,7 @@ function clearCartUI() { clearCart(); }
 
 function aktualisiereHeaderStatus() {
     const jetzt = new Date();
-    const tag = jetzt.getDay(); // 0 = Sonntag, 1 = Montag, ..., 6 = Samstag
+    const tag = jetzt.getDay(); 
     const stunde = jetzt.getHours();
     const minute = jetzt.getMinutes();
     
@@ -1074,9 +1074,9 @@ if (document.readyState === "loading") {
 
 document.addEventListener("DOMContentLoaded", function () {
     if (!sessionStorage.getItem("page_has_loaded_once")) {
-        // Seite wird zum ersten Mal geöffnet -> nach oben scrollen
+        
         window.scrollTo(0, 0);
-        // Im Speicher vermerken, dass der Erstaufruf erledigt ist
+        
         sessionStorage.setItem("page_has_loaded_once", "true");
     }
 });
