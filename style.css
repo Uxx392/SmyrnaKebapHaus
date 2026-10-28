@@ -3,6 +3,25 @@ body {
 }
 
 
+[id^="dish-card-"] h3 .text-orange-600,
+.text-orange-600 {
+    color: #d32f2f !important;
+}
+
+
+[id^="dish-card-"] button.bg-orange-50 {
+    color: #d32f2f !important;
+    border-color: rgba(211, 47, 47, 0.3) !important;
+    background-color: #fff5f5 !important; 
+}
+
+
+[id^="dish-card-"] button.bg-orange-50:hover {
+    background-color: #d32f2f !important;
+    border-color: #d32f2f !important;
+    color: #ffffff !important;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -96,13 +115,19 @@ body {
     }
 
 
-    div[class*="sauce"], .flex.flex-wrap.gap-1 {
+div[class*="sauce"], .flex.flex-wrap.gap-1 {
         display: flex !important;
         flex-wrap: wrap !important;
         width: 100% !important;
         gap: 4px !important;
     }
 
+
+    #menu-container > div > h2,
+    #menu-container > h2,
+    .category-title {
+        color: #d32f2f !important;
+    }
 
     div[class*="sauce"] label, div[class*="sauce"] span {
         font-size: 9px !important;
@@ -130,7 +155,8 @@ body {
         margin-bottom: 2px !important;
     }
 }
-/* Ändert NUR die Hauptkategorie-Titel über den Karten in das gewünschte Rot */
+
+
 #menu-container > div > h2,
 #menu-container > h2,
 .category-title {
