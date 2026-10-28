@@ -199,14 +199,23 @@
             <!-- Container: Jetzt im edlen 'brand-card' Anthrazit -->
             <div class="bg-brand-card rounded-2xl shadow-lg border border-neutral-800 overflow-hidden flex flex-col max-h-[calc(100vh-6rem)]">
                 
-                
-                
+                <!-- Angepasster Header-Bereich (Zurück-Button nur auf Mobilgeräten sichtbar, Titel zentriert auf Mobilgeräten) -->
                 <div class="p-4 bg-neutral-950 text-white flex items-center justify-between border-b border-neutral-800/80">
+                    
+                    <!-- Neuer Zurück-Button: Nur sichtbar auf Mobilgeräten (lg:hidden) -->
+                    <button onclick="scrollToMenu()" class="lg:hidden flex items-center space-x-1 text-xs font-bold bg-neutral-900 hover:bg-neutral-800 text-brand-red px-2.5 py-1.5 rounded-lg border border-brand-red/20 transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        
+                    </button>
 
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-basket-shopping text-brand-red"></i>
+                    <!-- Titel: Auf Mobilgeräten zentriert (text-center, flex-1), auf großen Bildschirmen linksbündig mit Icon -->
+                    <div class="flex items-center justify-center lg:justify-start space-x-2 flex-1 lg:flex-none text-center lg:text-left">
+                       <i class="fa-solid fa-basket-shopping text-brand-red"></i>
+
                         <h2 class="font-bold text-base">Ihre Bestellung</h2>
                     </div>
+
+                    <!-- Unveränderter Mülleimer-Button aus deinem Skript -->
                     <button onclick="clearCart()" class="text-xs text-brand-muted hover:text-red-400 transition flex items-center space-x-1">
                         <i class="fa-solid fa-trash-can"></i>
                         <span>Leeren</span>
@@ -451,8 +460,6 @@
     </div>
 </footer>
 
-
-    
     <div id="legalModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4" style="display: none;">
         <div class="bg-brand-card rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl border border-neutral-800">
             <div class="p-4 border-b border-neutral-800 flex justify-between items-center bg-neutral-950 rounded-t-2xl">
@@ -465,6 +472,29 @@
             </div>
         </div>
     </div>
+
+    <!-- Schwebender Warenkorb-Button am unteren rechten Rand (Nur Mobilversion) mit eingebautem Badge -->
+    <div id="sticky-mobile-cart" class="fixed bottom-4 right-4 z-50 md:hidden transition-all duration-300 transform translate-y-20 opacity-0">
+        <button onclick="toggleMobileCart()" class="relative bg-brand-red hover:bg-red-700 text-white p-4 rounded-full font-medium flex items-center justify-center shadow-2xl border border-neutral-800/50 active:scale-95">
+            <i class="fa-solid fa-cart-shopping text-xl"></i>
+            <!-- DAS NEUE BADGE FÜR DIE ANZAHL DER SPEISEN -->
+            <span id="sticky-cart-badge" class="absolute -top-1.5 -right-1.5 bg-white text-brand-red text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-neutral-950 hidden">0</span>
+        </button>
+    </div>
+
+<script>
+window.addEventListener('scroll', () => {
+    const stickyCart = document.getElementById('sticky-mobile-cart');
+    const sidebar = document.getElementById('cart-sidebar');
+    if (!stickyCart) return;
+
+    if (window.scrollY > 200 && (!sidebar || sidebar.classList.contains('hidden'))) {
+        stickyCart.classList.remove('translate-y-20', 'opacity-0');
+    } else {
+        stickyCart.classList.add('translate-y-20', 'opacity-0');
+    }
+});
+</script>
 
 </body>
 </html>
