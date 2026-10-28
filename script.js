@@ -646,7 +646,6 @@ function updateCartUI() {
             subtotal += itemTotal;
             totalItems += item.quantity;
 
-            
             let extrasHtml = '';
             if (item.sauce) extrasHtml += `<div>• Sauce: ${item.sauce}</div>`;
             if (item.side) extrasHtml += `<div>• Beilage: ${item.side}</div>`;
@@ -656,13 +655,11 @@ function updateCartUI() {
                 <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                     <div class="flex-1 pr-2">
                         <div class="font-semibold text-xs text-slate-800">${item.name}</div>
-                        <!-- Hier werden die Extras klein darunter angezeigt -->
                         ${extrasHtml ? `<div class="text-[10px] text-slate-500 mt-0.5 space-y-px">${extrasHtml}</div>` : ''}
                         <div class="text-[11px] text-slate-400 mt-1">${item.price.toFixed(2).replace('.', ',')} ${CONFIG.currency}</div>
                     </div>
                     <div class="flex items-center space-x-2">
                         <div class="flex items-center border border-slate-300 rounded-lg bg-white overflow-hidden">
-                            <!-- WICHTIG: Hier wird jetzt '${item.cartKey}' in Anführungszeichen übergeben -->
                             <button onclick="updateQuantity('${item.cartKey}', -1)" class="px-2 py-0.5 text-slate-600 hover:bg-slate-100 text-xs font-bold">-</button>
                             <span class="px-2 text-xs font-semibold text-slate-800">${item.quantity}</span>
                             <button onclick="updateQuantity('${item.cartKey}', 1)" class="px-2 py-0.5 text-slate-600 hover:bg-slate-100 text-xs font-bold">+</button>
@@ -682,12 +679,24 @@ function updateCartUI() {
     document.getElementById('delivery-fee').innerText = `${fee.toFixed(2).replace('.', ',')} ${CONFIG.currency}`;
     document.getElementById('total-price').innerText = `${total.toFixed(2).replace('.', ',')} ${CONFIG.currency}`;
 
+    // --- AKTUALISIERUNG DER BEIDEN BADGES (HEADER & SCHWEBENDER BUTTON) ---
     const badge = document.getElementById('cart-badge');
+    const stickyBadge = document.getElementById('sticky-cart-badge'); // Das neue mobile Badge
+
     if (totalItems > 0) {
-        badge.innerText = totalItems;
-        badge.classList.remove('hidden');
+        // Normales Header-Badge aktualisieren
+        if (badge) {
+            badge.innerText = totalItems;
+            badge.classList.remove('hidden');
+        }
+        // Schwebendes Warenkorb-Badge aktualisieren
+        if (stickyBadge) {
+            stickyBadge.innerText = totalItems;
+            stickyBadge.classList.remove('hidden');
+        }
     } else {
-        badge.classList.add('hidden');
+        if (badge) badge.classList.add('hidden');
+        if (stickyBadge) stickyBadge.classList.add('hidden');
     }
 }
 
@@ -943,27 +952,32 @@ function togglePdfModal() {
     const modal = document.getElementById('pdf-modal');
     if (modal) modal.classList.toggle('hidden');
 }
+// Variable direkt über der Funktion einfügen
+let lastScrollPositionBeforeCart = 0;
+
 function toggleMobileCart() {
     const sidebar = document.getElementById('cart-sidebar');
     const backBtn = document.getElementById('back-to-menu-btn');
     
     if (sidebar) {
         if (window.innerWidth <= 768) {
+            // Speichert die aktuelle Scroll-Position, bevor die Sidebar geöffnet wird
+            if (sidebar.classList.contains('hidden')) {
+                lastScrollPositionBeforeCart = window.scrollY;
+            }
+
             sidebar.classList.remove('hidden');
             
             if (backBtn) {
                 backBtn.style.setProperty('display', 'flex', 'important');
             }
             
-            
             setTimeout(() => {
                 const warenkorbZiel = document.getElementById('warenkorb-ziel');
                 const zielElement = warenkorbZiel || sidebar;
                 
-                
                 const elementPosition = zielElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset;
-                
                 
                 const finalScrollPosition = offsetPosition - 180;
                 
@@ -980,12 +994,21 @@ function toggleMobileCart() {
 }
 
 function scrollToMenu() {
+    const sidebar = document.getElementById('cart-sidebar');
     const backBtn = document.getElementById('back-to-menu-btn');
     
+    // 1. Mobile Sidebar wieder ausblenden
+    if (sidebar && window.innerWidth <= 768) {
+        sidebar.classList.add('hidden');
+    }
     
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 2. Exakt an die vorab gemerkte Stelle zurückscrollen
+    window.scrollTo({ 
+        top: lastScrollPositionBeforeCart, 
+        behavior: 'smooth' 
+    });
     
-    
+    // 3. Den Zurück-Button im Header wieder verstecken
     if (backBtn) {
         backBtn.style.display = 'none';
     }
