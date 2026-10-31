@@ -915,7 +915,7 @@ function closeOrderModal() {
     
     if (note) message += `*Anmerkung:* ${note}\n`;
     
-    message += `\n📦 *BESTELLTE GERICHTE:*\n${cartItemsText}`;
+    Smessage += `\n📦 *BESTELLTE GERICHTE:*\n${cartItemsText}`;
     if (fee > 0) message += `*Liefergebühr:* ${fee.toFixed(2).replace('.', ',')} ${CONFIG.currency}\n`;
     message += `*Gesamtsumme:* *${formattedTotalSum}*`;
 
@@ -930,6 +930,9 @@ function closeOrderModal() {
         clearCart();
     }
 }
+
+
+
 function callRestaurantDirectly() {
     if (!CONFIG.phone) {
         alert("Es wurde keine Telefonnummer hinterlegt.");
@@ -937,22 +940,35 @@ function callRestaurantDirectly() {
     }
     
     
+    window.anrufWurdeGetaetigt = true;
+    
     window.location.href = `tel:${CONFIG.phone.trim()}`;
     
-    
     closeOrderModal();
-    
-    
-    if (typeof clearCart === "function") {
-        clearCart();
-    }
 }
+
+window.addEventListener('pageshow', function() {
+    
+    if (window.anrufWurdeGetaetigt === true) {
+        
+        if (typeof clearCart === "function") {
+            clearCart();
+        }
+        
+        if (document.getElementById('anrufSpickzettelModal')) {
+            document.getElementById('anrufSpickzettelModal').classList.add('hidden');
+        }
+        
+        window.anrufWurdeGetaetigt = false; 
+    }
+});
+ 
 
 function togglePdfModal() {
     const modal = document.getElementById('pdf-modal');
     if (modal) modal.classList.toggle('hidden');
 }
-// Variable direkt über der Funktion einfügen
+
 let lastScrollPositionBeforeCart = 0;
 
 function toggleMobileCart() {
@@ -961,7 +977,7 @@ function toggleMobileCart() {
     
     if (sidebar) {
         if (window.innerWidth <= 768) {
-            // Speichert die aktuelle Scroll-Position, bevor die Sidebar geöffnet wird
+            
             if (sidebar.classList.contains('hidden')) {
                 lastScrollPositionBeforeCart = window.scrollY;
             }
@@ -997,18 +1013,18 @@ function scrollToMenu() {
     const sidebar = document.getElementById('cart-sidebar');
     const backBtn = document.getElementById('back-to-menu-btn');
     
-    // 1. Mobile Sidebar wieder ausblenden
+    
     if (sidebar && window.innerWidth <= 768) {
         sidebar.classList.add('hidden');
     }
     
-    // 2. Exakt an die vorab gemerkte Stelle zurückscrollen
+    
     window.scrollTo({ 
         top: lastScrollPositionBeforeCart, 
         behavior: 'smooth' 
     });
     
-    // 3. Den Zurück-Button im Header wieder verstecken
+    
     if (backBtn) {
         backBtn.style.display = 'none';
     }
@@ -1231,7 +1247,9 @@ function scrollToCategory(categoryId) {
 let anrufWurdeGetaetigt = false;
 
 function zeigeAnrufVorschau() {
+    
     closeOrderModal();
+    
     
     const warenkorbInhalt = document.getElementById('cart-items-container').innerHTML;
     const gesamtSumme = document.getElementById('total-price').innerText;
@@ -1239,17 +1257,20 @@ function zeigeAnrufVorschau() {
     document.getElementById('spickzettelProdukte').innerHTML = warenkorbInhalt;
     document.getElementById('spickzettelSumme').innerText = gesamtSumme;
 
+    
     document.getElementById('anrufSpickzettelModal').classList.remove('hidden');
 }
 
 function schliesseAnrufVorschau() {
     document.getElementById('anrufSpickzettelModal').classList.add('hidden');
-    
     if (typeof openOrderModal === "function") {
         openOrderModal();
     }
 }
 
+function finalAnrufenUndLeeren() {
+    callRestaurantDirectly();
+}
 function finalAnrufenUndLeeren() {
     if (!CONFIG.phone) {
         alert("Es wurde keine Telefonnummer hinterlegt.");
