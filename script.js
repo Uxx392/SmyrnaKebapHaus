@@ -1227,10 +1227,11 @@ function scrollToCategory(categoryId) {
 }
 
 
+
+let anrufWurdeGetaetigt = false;
+
 function zeigeAnrufVorschau() {
-    
     closeOrderModal();
-    
     
     const warenkorbInhalt = document.getElementById('cart-items-container').innerHTML;
     const gesamtSumme = document.getElementById('total-price').innerText;
@@ -1238,27 +1239,39 @@ function zeigeAnrufVorschau() {
     document.getElementById('spickzettelProdukte').innerHTML = warenkorbInhalt;
     document.getElementById('spickzettelSumme').innerText = gesamtSumme;
 
-    
     document.getElementById('anrufSpickzettelModal').classList.remove('hidden');
 }
 
-
 function schliesseAnrufVorschau() {
-    
     document.getElementById('anrufSpickzettelModal').classList.add('hidden');
-    
-    
     
     if (typeof openOrderModal === "function") {
         openOrderModal();
     }
 }
 
-
 function finalAnrufenUndLeeren() {
+    if (!CONFIG.phone) {
+        alert("Es wurde keine Telefonnummer hinterlegt.");
+        return;
+    }
     
-    callRestaurantDirectly();
+    
+    anrufWurdeGetaetigt = true;
     
     
-    document.getElementById('anrufSpickzettelModal').classList.add('hidden');
+    window.location.href = `tel:${CONFIG.phone.trim()}`;
 }
+
+
+window.addEventListener('pageshow', function() {
+    if (anrufWurdeGetaetigt) {
+        // Erst JETZT, wo der Anruf vorbei oder im Hintergrund ist, leeren wir den Warenkorb
+        if (typeof clearCart === "function") {
+            clearCart();
+        }
+        
+        document.getElementById('anrufSpickzettelModal').classList.add('hidden');
+        anrufWurdeGetaetigt = false; 
+    }
+});
