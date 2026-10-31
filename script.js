@@ -1166,3 +1166,99 @@ renderDishes = function() {
     originalRenderDishes();
     fixDonerIcons();
 };
+
+function scrollToCategory(categoryId) {
+    const categoriesArray = [
+        { id: "drehspiess_doener", name: "drehspieß" },
+        { id: "salate", name: "salate" },
+        { id: "nudeln", name: "nudeln" },
+        { id: "pizza", name: "pizza" },
+        { id: "pide", name: "pide" },
+        { id: "schnitzel", name: "schnitzel" },
+        { id: "unsere_spezialitaeten", name: "spezialitäten" },
+        { id: "tuerkische_spezialitaeten", name: "türkische" },
+        { id: "suppen", name: "suppen" },
+        { id: "beilagen", name: "beilagen" },
+        { id: "suessspeisen", name: "süßspeisen" },
+        { id: "getraenke", name: "getränke" }
+    ];
+
+    const foundCategory = categoriesArray.find(c => c.id === categoryId);
+    
+    if (foundCategory) {
+        
+        const tabsContainer = document.getElementById('category-tabs');
+        if (tabsContainer) {
+            let allTabs = Array.from(tabsContainer.querySelectorAll('button, div, span, p, a'));
+            
+            
+            let matchingTab = allTabs.find(el => {
+                return el.textContent.trim().toLowerCase().includes(foundCategory.name);
+            });
+
+            if (matchingTab) {
+                
+                let clickableTab = matchingTab.closest('button') || matchingTab.closest('.cursor-pointer') || matchingTab;
+                
+                
+                clickableTab.click();
+
+                
+                setTimeout(() => {
+                    const offset = 70; // Lässt oben etwas Platz für dein Logo/Statusleiste
+                    const elementPosition = tabsContainer.getBoundingClientRect().top + window.scrollY;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+                return;
+            }
+        }
+    }
+
+    
+    const tabsContainer = document.getElementById('category-tabs');
+    if (tabsContainer) {
+        tabsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+
+function zeigeAnrufVorschau() {
+    
+    closeOrderModal();
+    
+    
+    const warenkorbInhalt = document.getElementById('cart-items-container').innerHTML;
+    const gesamtSumme = document.getElementById('total-price').innerText;
+    
+    document.getElementById('spickzettelProdukte').innerHTML = warenkorbInhalt;
+    document.getElementById('spickzettelSumme').innerText = gesamtSumme;
+
+    
+    document.getElementById('anrufSpickzettelModal').classList.remove('hidden');
+}
+
+
+function schliesseAnrufVorschau() {
+    
+    document.getElementById('anrufSpickzettelModal').classList.add('hidden');
+    
+    
+    
+    if (typeof openOrderModal === "function") {
+        openOrderModal();
+    }
+}
+
+
+function finalAnrufenUndLeeren() {
+    
+    callRestaurantDirectly();
+    
+    
+    document.getElementById('anrufSpickzettelModal').classList.add('hidden');
+}
