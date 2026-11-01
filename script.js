@@ -708,16 +708,23 @@ function openOrderModal(type) {
         return;
     }
 
+    const modal = document.getElementById('custom-order-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'block'; // Schaltet das Fenster beim Klicken wieder sichtbar!
+    }
+
     currentOrderType = type;
     updateCartUI();
 
-    const modal = document.getElementById('custom-order-modal');
     const subtitle = document.getElementById('modal-order-subtitle');
     const typeInput = document.getElementById('pop-order-type');
     const deliveryFields = document.getElementById('pop-delivery-fields');
-    const addressInput = document.getElementById('pop-cust-address');
     const timeInput = document.getElementById('pop-cust-time');
     const phoneSummary = document.getElementById('pop-phone-summary');
+    
+    
+    const addressInput = document.getElementById('pop-cust-address');
 
     if (!modal) return;
 
@@ -781,7 +788,6 @@ function openOrderModal(type) {
         nameInput.parentElement.style.display = "block"; 
     }
 
-    
     if (type === "Lieferung") {
         if (deliveryFields) deliveryFields.style.display = "block"; 
         if (addressInput) {
@@ -789,7 +795,6 @@ function openOrderModal(type) {
             addressInput.required = true;  
         }
     } else {
-        
         if (deliveryFields) deliveryFields.style.display = "block"; 
         if (addressInput) {
             addressInput.parentElement.style.display = "none";  
@@ -803,7 +808,10 @@ function openOrderModal(type) {
 
 function closeOrderModal() {
     const modal = document.getElementById('custom-order-modal');
-    if (modal) modal.classList.add('hidden');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+    }
 }
 
  function sendPopOrderWhatsApp() {
@@ -812,48 +820,6 @@ function closeOrderModal() {
     const addressInput = document.getElementById('pop-cust-address');
     const timeInput = document.getElementById('pop-cust-time');
     const noteInput = document.getElementById('pop-cust-note');
-    
-    const deliveryFields = document.getElementById('pop-delivery-fields');
-    const whatsappBtn = document.querySelector('button[onclick="sendPopOrderWhatsApp()"]');
-    
-    let anrufBtn = document.querySelector('button[onclick*="callRestaurantDirectly"]');
-    if (!anrufBtn) {
-        const buttons = document.querySelectorAll('#custom-order-modal button');
-        buttons.forEach(btn => {
-            if (btn.textContent.toLowerCase().includes('telefon') || btn.textContent.toLowerCase().includes('anruf')) {
-                anrufBtn = btn;
-            }
-        });
-    }
-
-    if (!isWhatsAppFieldsVisible) {
-        if (deliveryFields) deliveryFields.style.display = "block";
-        if (nameInput && nameInput.parentElement) nameInput.parentElement.style.display = "block";
-        
-        if (orderType === "Lieferung") {
-            if (addressInput && addressInput.parentElement) {
-                addressInput.parentElement.style.display = "block";
-            }
-        } else {
-            if (addressInput && addressInput.parentElement) {
-                addressInput.parentElement.style.display = "none";
-            }
-        }
-        
-        const phoneInput = document.getElementById('pop-cust-phone');
-        if (phoneInput && phoneInput.parentElement) phoneInput.parentElement.style.display = "none";
-
-        if (anrufBtn) {
-            anrufBtn.style.setProperty('display', 'none', 'important');
-        }
-
-        if (whatsappBtn) {
-            whatsappBtn.innerHTML = `<i class="fa-brands fa-whatsapp text-sm mr-1"></i> Jetzt über WhatsApp absenden`;
-        }
-
-        isWhatsAppFieldsVisible = true;
-        return;
-    }
 
     const name = nameInput ? nameInput.value.trim() : "";
     const address = addressInput ? addressInput.value.trim() : "";
@@ -880,10 +846,8 @@ function closeOrderModal() {
         const itemTotal = item.price * item.quantity;
         const formattedPrice = itemTotal.toFixed(2).replace('.', ',') + " " + CONFIG.currency;
         
-        
         const dishNumber = item.number ? `[${item.number}] ` : "";
         cartItemsText += `• ${dishNumber}${item.quantity}x ${item.name} (${formattedPrice})\n`;
-        
         
         if (item.sauce) {
             cartItemsText += ` ↳ Sauce: ${item.sauce}\n`;
@@ -915,12 +879,14 @@ function closeOrderModal() {
     
     if (note) message += `*Anmerkung:* ${note}\n`;
     
-    Smessage += `\n📦 *BESTELLTE GERICHTE:*\n${cartItemsText}`;
+    message += `\n📦 *BESTELLTE GERICHTE:*\n${cartItemsText}`;
     if (fee > 0) message += `*Liefergebühr:* ${fee.toFixed(2).replace('.', ',')} ${CONFIG.currency}\n`;
     message += `*Gesamtsumme:* *${formattedTotalSum}*`;
 
-    const cleanNumber = CONFIG.whatsAppPhone.replace(/[^0-9]/g, ""); 
+        const cleanNumber = CONFIG.whatsAppPhone.replace(/[^0-9]/g, ""); 
     const encodedMessage = encodeURIComponent(message);
+    
+    // Deine gewünschte Zeile mit echten Backticks:
     const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, '_blank');
@@ -930,6 +896,7 @@ function closeOrderModal() {
         clearCart();
     }
 }
+
 
 
 
@@ -1247,36 +1214,84 @@ function scrollToCategory(categoryId) {
 let anrufWurdeGetaetigt = false;
 
 function zeigeAnrufVorschau() {
-    
-    closeOrderModal();
-    
-    
-    const warenkorbInhalt = document.getElementById('cart-items-container').innerHTML;
-    const gesamtSumme = document.getElementById('total-price').innerText;
-    
-    document.getElementById('spickzettelProdukte').innerHTML = warenkorbInhalt;
-    document.getElementById('spickzettelSumme').innerText = gesamtSumme;
+    try {
+        
+        const orderModal = document.getElementById('custom-order-modal');
+        if (orderModal) {
+            orderModal.style.display = 'none';
+        }
 
-    
-    document.getElementById('anrufSpickzettelModal').classList.remove('hidden');
+        
+        let cartItemsText = "";
+        let totalSum = 0;
+
+        if (typeof cart !== "undefined" && cart.length > 0) {
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                
+                
+                const dishNumber = (item.number && item.number !== "undefined") ? `[${item.number}] ` : "";
+                
+                cartItemsText += `<div class="py-1 border-b border-neutral-800 text-sm text-neutral-300">
+                    • ${dishNumber}<strong>${item.quantity}x</strong> ${item.name}
+                    ${item.sauce ? `<br><small class="text-neutral-500">↳ Sauce: ${item.sauce}</small>` : ''}
+                    ${item.side ? `<br><small class="text-neutral-500">↳ Beilage: ${item.side}</small>` : ''}
+                    ${item.comment ? `<br><small class="text-neutral-500">↳ Anm.: "${item.comment}"</small>` : ''}
+                </div>`;
+                
+                totalSum += itemTotal;
+            });
+        } else {
+            cartItemsText = '<div class="text-neutral-500">Keine Produkte im Warenkorb.</div>';
+        }
+
+        
+        const gesamtSumme = document.getElementById('total-price')?.innerText || "0,00 €";
+
+        
+        const spickzettelProdukteEl = document.getElementById('spickzettelProdukte');
+        const spickzettelSummeEl = document.getElementById('spickzettelSumme');
+
+        if (spickzettelProdukteEl) spickzettelProdukteEl.innerHTML = cartItemsText;
+        if (spickzettelSummeEl) spickzettelSummeEl.innerText = gesamtSumme;
+
+        
+        const anrufModal = document.getElementById('anrufSpickzettelModal');
+        if (anrufModal) {
+            anrufModal.classList.remove('hidden');
+        }
+
+    } catch (e) {
+        
+        console.error("Fehler bei Anrufvorschau:", e);
+        
+        
+        const anrufModal = document.getElementById('anrufSpickzettelModal');
+        if (anrufModal) anrufModal.classList.remove('hidden');
+    }
 }
 
 function schliesseAnrufVorschau() {
-    document.getElementById('anrufSpickzettelModal').classList.add('hidden');
-    if (typeof openOrderModal === "function") {
+    
+    const anrufModal = document.getElementById('anrufSpickzettelModal');
+    if (anrufModal) {
+        anrufModal.classList.add('hidden');
+    }
+    
+    
+    const orderModal = document.getElementById('custom-order-modal');
+    if (orderModal) {
+        orderModal.style.display = 'block';
+    } else if (typeof openOrderModal === "function") {
         openOrderModal();
     }
 }
 
 function finalAnrufenUndLeeren() {
-    callRestaurantDirectly();
-}
-function finalAnrufenUndLeeren() {
-    if (!CONFIG.phone) {
+    if (!CONFIG || !CONFIG.phone) {
         alert("Es wurde keine Telefonnummer hinterlegt.");
         return;
     }
-    
     
     anrufWurdeGetaetigt = true;
     
@@ -1287,12 +1302,14 @@ function finalAnrufenUndLeeren() {
 
 window.addEventListener('pageshow', function() {
     if (anrufWurdeGetaetigt) {
-        // Erst JETZT, wo der Anruf vorbei oder im Hintergrund ist, leeren wir den Warenkorb
         if (typeof clearCart === "function") {
             clearCart();
         }
         
-        document.getElementById('anrufSpickzettelModal').classList.add('hidden');
+        const anrufModal = document.getElementById('anrufSpickzettelModal');
+        if (anrufModal) {
+            anrufModal.classList.add('hidden');
+        }
         anrufWurdeGetaetigt = false; 
     }
 });
