@@ -266,65 +266,86 @@
                     </div>
 
                     
-                    <div class="lg:hidden space-y-2 pt-1 border-t border-neutral-800/60">
-                        <label class="block text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">darf es noch etwas dazu sein?</label>
-                        
-                        
-                        <div class="flex items-center space-x-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden py-1.5">
-                            
-                            <button type="button" onclick="scrollToCategory('salate')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🥗</span>
-                                <span class="text-[10px] font-medium leading-tight">Salate</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('beilagen')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🍟</span>
-                                <span class="text-[10px] font-medium leading-tight">Beilagen</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('suessspeisen')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🍰</span>
-                                <span class="text-[10px] font-medium leading-tight">Süßspeisen</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('getraenke')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🥤</span>
-                                <span class="text-[10px] font-medium leading-tight">Getränke</span>
-                            </button>
-                            
-                            
-                            <button type="button" onclick="scrollToCategory('drehspiess_doener')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] px-1 py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🥙</span>
-                                <span class="text-[10px] font-medium leading-tight">Döner</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('nudeln')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🍝</span>
-                                <span class="text-[10px] font-medium leading-tight">Nudeln</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('pizza')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🍕</span>
-                                <span class="text-[10px] font-medium leading-tight">Pizza</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('pide')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🫓</span>
-                                <span class="text-[10px] font-medium leading-tight">Pide</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('schnitzel')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🍗</span>
-                                <span class="text-[10px] font-medium leading-tight">Schnitzel</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('unsere_spezialitaeten')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">⭐</span>
-                                <span class="text-[10px] font-medium leading-tight">Spezial</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('tuerkische_spezialitaeten')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">❤️</span>
-                                <span class="text-[10px] font-medium leading-tight">Türkisch</span>
-                            </button>
-                            <button type="button" onclick="scrollToCategory('suppen')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
-                                <span class="text-lg mb-0.5">🥣</span>
-                                <span class="text-[10px] font-medium leading-tight">Suppen</span>
-                            </button>
-                        </div>
-                    </div>
-                    
+                    <<div class="lg:hidden space-y-2 pt-1 border-t border-neutral-800/60">
+    <label class="block text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">darf es noch etwas dazu sein?</label>
+    
+    <div class="flex items-center space-x-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden py-1.5">
+        
+        
+        <button type="button" onclick="scrollToCategory('salate')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="salatblaetter.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Salate</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('beilagen')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="beilagen.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Beilagen</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('suessspeisen')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="suesspeisen.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Süßspeisen</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('getraenke')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="cola.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Getränke</span>
+        </button>
+        
+        
+        <button type="button" onclick="scrollToCategory('drehspiess_doener')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] px-1 py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="Drehspies-Bild.png.png" alt="" style="width:26px; height:26px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Döner</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('nudeln')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="pasta.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Nudeln</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('pizza')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="pizza.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Pizza</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('pide')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="pide.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Pide</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('schnitzel')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="schnitzel.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Schnitzel</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('unsere_spezialitaeten')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="bruschetta.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Spezial</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('tuerkische_spezialitaeten')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px; font-size: 20px;">❤️</span>
+            <span class="text-[10px] font-medium leading-tight">Türkisch</span>
+        </button>
+
+        
+        <button type="button" onclick="scrollToCategory('suppen')" class="flex-shrink-0 bg-neutral-950 text-neutral-200 min-w-[75px] py-2 rounded-xl border border-neutral-800/80 active:border-brand-red active:bg-brand-red/10 transition flex flex-col items-center justify-center text-center">
+            <span class="text-lg mb-0.5 flex items-center justify-center" style="height:24px;"><img src="suppe.png" alt="" style="width:24px; height:24px; object-fit:contain;"></span>
+            <span class="text-[10px] font-medium leading-tight">Suppen</span>
+        </button>
+        
+    </div>
+</div>
+
                     <div class="space-y-2 pt-2">
                         <label class="block text-xs font-semibold text-neutral-400 mb-1">Bitte wählen Sie Ihre Bestellart:</label>
                         <div class="grid grid-cols-3 gap-1.5">
