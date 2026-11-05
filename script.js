@@ -1089,7 +1089,7 @@ if ('scrollRestoration' in history) {
 function fixAllCategoryIcons() {
     
     const categoryConfig = {
-        'drehspiess_doener':        { image: 'Drehspies-Bild.png.png', textMatch: 'Drehspieß & Döner', mobileSize: '46px' },
+        'drehspiess_doener':        { image: 'Drehspies-Bild.png.png', textMatch: 'Drehspieß & Döner', mobileSize: '24px' },
         'salate':                  { image: 'salatblaetter.png',      textMatch: 'Salate',                  mobileSize: '24px' },
         'nudeln':                  { image: 'pasta.png',              textMatch: 'Nudeln',                  mobileSize: '24px' },
         'pizza':                   { image: 'pizza.png',              textMatch: 'Pizza',                   mobileSize: '24px' },
