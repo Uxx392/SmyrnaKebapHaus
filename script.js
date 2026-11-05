@@ -114,7 +114,7 @@ dishes: [
     // --- BEILAGEN ---
     { id: 75, number: "75", name: "Reis", description: "Portion feiner Reis", price: 4.50, category: "beilagen", image: "images/75.jpg", additivesAndAllergens: [] },
     { id: 76, number: "76", name: "Pommes Frites", description: "Portion knusprige Pommes frites", price: 4.00, category: "beilagen", image: "images/76.jpg", additivesAndAllergens: ["1", "2", "3", "7"] },
-    { id: 77, number: "77", name: "Pommes Frites Maxi", description: "Große Portion knusprige Pommes frites", price: 4.50, category: "beilagen", image: "images/77.jpg", additivesAndAllergens: ["1", "2", "3", "7"] },
+    { id: 77, number: "77", name: "Pommes Frites Maxi", description: "Große Portion knusprige Pommes frites", price: 5.00, category: "beilagen", image: "images/77.jpg", additivesAndAllergens: ["1", "2", "3", "7"] },
     { id: 78, number: "78", name: "Kroketten", description: "Portion goldbraune Kroketten", price: 4.50, category: "beilagen", image: "images/78.jpg", additivesAndAllergens: ["A", "C", "G", "1", "2", "4"] },
     { id: 79, number: "79", name: "Chili-Hollandaisesoße", description: "Würzige, cremige Chili-Hollandaisesoße", price: 4.00, category: "beilagen", image: "images/79.jpg", additivesAndAllergens: ["C", "G", "1", "2", "4", "3", "22", "25"] },
     { id: 80, number: "80", name: "Sauerrahm", description: "Portion frischer Sauerrahm", price: 4.00, category: "beilagen", image: "images/80.jpg", additivesAndAllergens: ["C", "G", "1", "2", "3", "4", "22", "25"] },
@@ -1090,16 +1090,16 @@ function fixAllCategoryIcons() {
     
     const categoryConfig = {
         'drehspiess_doener':        { image: 'Drehspies-Bild.png.png', textMatch: 'Drehspieß & Döner', mobileSize: '46px' },
-        'salate':                  { image: 'salatblaetter.png',      textMatch: 'Salate',                  mobileSize: '40px' },
-        'nudeln':                  { image: 'pasta.png',              textMatch: 'Nudeln',                  mobileSize: '40px' },
-        'pizza':                   { image: 'pizza.png',              textMatch: 'Pizza',                   mobileSize: '40px' },
-        'pide':                    { image: 'pide.png',               textMatch: 'Pide',                    mobileSize: '40px' },
-        'schnitzel':               { image: 'schnitzel.png',          textMatch: 'Schnitzel vom Hähnchen',  mobileSize: '40px' },
-        'unsere_spezialitaeten':   { image: 'bruschetta.png',         textMatch: 'Unsere Spezialitäten',    mobileSize: '40px' },
-        'suppen':                  { image: 'suppe.png',              textMatch: 'Suppen',                  mobileSize: '40px' },
-        'beilagen':                { image: 'beilagen.png',            textMatch: 'Beilagen',                mobileSize: '40px' },
-        'suessspeisen':            { image: 'suesspeisen.png',       textMatch: 'Süßspeisen',              mobileSize: '40px' },
-        'getraenke':               { image: 'cola.png',               textMatch: 'Getränke',                mobileSize: '40px' },
+        'salate':                  { image: 'salatblaetter.png',      textMatch: 'Salate',                  mobileSize: '24px' },
+        'nudeln':                  { image: 'pasta.png',              textMatch: 'Nudeln',                  mobileSize: '24px' },
+        'pizza':                   { image: 'pizza.png',              textMatch: 'Pizza',                   mobileSize: '24px' },
+        'pide':                    { image: 'pide.png',               textMatch: 'Pide',                    mobileSize: '24px' },
+        'schnitzel':               { image: 'schnitzel.png',          textMatch: 'Schnitzel vom Hähnchen',  mobileSize: '24px' },
+        'unsere_spezialitaeten':   { image: 'bruschetta.png',         textMatch: 'Unsere Spezialitäten',    mobileSize: '24px' },
+        'suppen':                  { image: 'suppe.png',              textMatch: 'Suppen',                  mobileSize: '24px' },
+        'beilagen':                { image: 'beilagen.png',            textMatch: 'Beilagen',                mobileSize: '24px' },
+        'suessspeisen':            { image: 'suesspeisen.png',       textMatch: 'Süßspeisen',              mobileSize: '24px' },
+        'getraenke':               { image: 'cola.png',               textMatch: 'Getränke',                mobileSize: '24px' },
         'tuerkische_spezialitaeten': { isHeart: true,                 textMatch: 'Türkische Spezialitäten', mobileSize: '24px' }
     };
 
