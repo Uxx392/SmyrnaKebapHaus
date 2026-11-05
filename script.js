@@ -213,25 +213,17 @@ function overwriteMobileDonerIconOnly() {
 
     const elements = document.querySelectorAll('div, button, span, a');
     elements.forEach(el => {
-        if (el.textContent && el.textContent.trim() === 'Drehspieß & Döner') {
-            const parentContainer = el.closest('div');
-            if (parentContainer) {
-                parentContainer.innerHTML = parentContainer.innerHTML.replace('🥙', '<img src="Drehspies-Bild.png.png" alt="" style="display: inline-block !important; width: 20px !important; height: 20px !important; vertical-align: middle !important; margin-bottom: 4px !important;">');
-            }
+        const text = el.textContent && el.textContent.trim();
+        const parentContainer = el.closest('div');
+
+        if (!parentContainer) return;
+
+        if (text === 'Drehspieß & Döner') {
+            parentContainer.innerHTML = parentContainer.innerHTML.replace('🥙', '<img src="Drehspies-Bild.png.png" style="width:20px; height:20px;">');
         }
     });
 }
 
-
-if (typeof renderCategories !== 'undefined') {
-    const originalRenderCategories = renderCategories;
-    renderCategories = function() {
-        originalRenderCategories();
-        if (window.innerWidth < 768) {
-            setTimeout(overwriteMobileDonerIconOnly, 50);
-        }
-    };
-}
 
 
 function renderCategories() {
@@ -1094,43 +1086,119 @@ if ('scrollRestoration' in history) {
 
 
 
-function fixDonerIcons() {
-   
-    const catButton = document.getElementById('cat-btn-drehspiess_doener');
-    if (catButton) {
-        catButton.style.display = 'inline-flex';
-        catButton.style.alignItems = 'center';
-        catButton.style.justifyContent = 'center';
+function fixAllCategoryIcons() {
+    
+    const categoryConfig = {
+        'drehspiess_doener':        { image: 'Drehspies-Bild.png.png', textMatch: 'Drehspieß & Döner', mobileSize: '46px' },
+        'salate':                  { image: 'salatblaetter.png',      textMatch: 'Salate',                  mobileSize: '40px' },
+        'nudeln':                  { image: 'pasta.png',              textMatch: 'Nudeln',                  mobileSize: '40px' },
+        'pizza':                   { image: 'pizza.png',              textMatch: 'Pizza',                   mobileSize: '40px' },
+        'pide':                    { image: 'pide.png',               textMatch: 'Pide',                    mobileSize: '40px' },
+        'schnitzel':               { image: 'schnitzel.png',          textMatch: 'Schnitzel vom Hähnchen',  mobileSize: '40px' },
+        'unsere_spezialitaeten':   { image: 'bruschetta.png',         textMatch: 'Unsere Spezialitäten',    mobileSize: '40px' },
+        'suppen':                  { image: 'suppe.png',              textMatch: 'Suppen',                  mobileSize: '40px' },
+        'beilagen':                { image: 'beilagen.png',            textMatch: 'Beilagen',                mobileSize: '40px' },
+        'suessspeisen':            { image: 'suesspeisen.png',       textMatch: 'Süßspeisen',              mobileSize: '40px' },
+        'getraenke':               { image: 'cola.png',               textMatch: 'Getränke',                mobileSize: '40px' },
+        'tuerkische_spezialitaeten': { isHeart: true,                 textMatch: 'Türkische Spezialitäten', mobileSize: '24px' }
+    };
 
-        let iconElement = catButton.querySelector('i.fa-solid');
-        if (iconElement) {
-            
-            iconElement.outerHTML = '<img src="Drehspies-Bild.png.png" alt="" style="display: inline-block !important; width: 20px !important; height: 20px !important; margin-right: 5px !important;">';
-        } else {
-            
-            const imgElement = catButton.querySelector('img');
-            if (imgElement) {
-                imgElement.style.setProperty('margin-right', '5px', 'important');
-                imgElement.style.setProperty('width', '20px', 'important');
-                imgElement.style.setProperty('height', '20px', 'important');
+    const isMobile = window.innerWidth <= 768;
+
+    
+    Object.keys(categoryConfig).forEach(catId => {
+        const catButton = document.getElementById(`cat-btn-${catId}`);
+        if (catButton) {
+            const config = categoryConfig[catId];
+
+            if (isMobile) {
+                
+                catButton.style.setProperty('display', 'flex', 'important');
+                catButton.style.setProperty('flex-direction', 'column', 'important');
+                catButton.style.setProperty('align-items', 'center', 'important');
+                catButton.style.setProperty('gap', '4px', 'important'); 
+                catButton.style.setProperty('min-w', '78px', 'important');
+                catButton.style.setProperty('margin-top', '8px', 'important'); 
+
+                const textSpan = catButton.querySelector('.cat-text');
+                if (textSpan) {
+                    textSpan.style.setProperty('height', '28px', 'important');
+                    textSpan.style.setProperty('display', 'flex', 'important');
+                    textSpan.style.setProperty('align-items', 'center', 'important');
+                    textSpan.style.setProperty('justify-content', 'center', 'important');
+                    textSpan.style.setProperty('line-height', '1.1', 'important');
+                }
+
+                
+                const container = catButton.querySelector('div.rounded-full');
+                if (container) {
+                    container.style.setProperty('display', 'flex', 'important');
+                    container.style.setProperty('align-items', 'center', 'important');
+                    container.style.setProperty('justify-content', 'center', 'important');
+                    
+                    if (config.isHeart) {
+                        container.innerHTML = '<span style="font-size: 24px !important; position: relative; z-index: 20;">❤️</span>';
+                    } else if (config.image) {
+                        container.innerHTML = `<img src="${config.image}" alt="" style="display: block !important; width: ${config.mobileSize} !important; height: ${config.mobileSize} !important; object-fit: contain !important; position: relative; z-index: 20;">`;
+                    }
+                }
+            }             else {
+                catButton.style.display = 'inline-flex';
+                catButton.style.alignItems = 'center';
+                catButton.style.justifyContent = 'center';
+
+                // Erhöht den Abstand links und rechts zum Rand und macht die Kapseln breiter
+                catButton.style.setProperty('padding-left', '16px', 'important');
+                catButton.style.setProperty('padding-right', '16px', 'important');
+                catButton.style.setProperty('padding-top', '10px', 'important');
+                catButton.style.setProperty('padding-bottom', '10px', 'important');
+                catButton.style.setProperty('font-size', '13px', 'important');
+
+                let iconElement = catButton.querySelector('i.fa-solid');
+                if (iconElement) {
+                    if (config.isHeart) {
+                        iconElement.outerHTML = '<span style="display: inline-block !important; font-size: 18px !important; margin-right: 8px !important; vertical-align: middle !important;">❤️</span>';
+                    } else if (config.image) {
+                        iconElement.outerHTML = `<img src="${config.image}" alt="" style="display: inline-block !important; width: 24px !important; height: 24px !important; margin-right: 8px !important; vertical-align: middle !important; object-fit: contain;">`;
+                    }
+                } else {
+                    const imgElement = catButton.querySelector('img');
+                    if (imgElement && config.image) {
+                        imgElement.src = config.image;
+                        imgElement.style.setProperty('margin-right', '8px', 'important');
+                        imgElement.style.setProperty('width', '24px', 'important');
+                        imgElement.style.setProperty('height', '24px', 'important');
+                        imgElement.style.setProperty('object-fit', 'contain', 'important');
+                    }
+                }
             }
         }
-    }
+    });
+
 
     
     const headings = document.querySelectorAll('h2');
     headings.forEach(h2 => {
-        if (h2.textContent.includes('Drehspieß & Döner')) {
+        const text = h2.textContent.trim();
+        const matchedConfig = Object.values(categoryConfig).find(config => text.includes(config.textMatch));
+        
+        if (matchedConfig) {
             let iconElement = h2.querySelector('i.fa-solid');
             if (iconElement) {
-                iconElement.outerHTML = '<img src="Drehspies-Bild.png.png" alt="" style="display: inline-block !important; width: 24px !important; height: 24px !important; vertical-align: middle !important; margin-right: 8px !important;">';
+                if (matchedConfig.isHeart) {
+                    iconElement.outerHTML = '<span style="display: inline-block !important; font-size: 22px !important; margin-right: 8px !important; vertical-align: middle !important;">❤️</span>';
+                } else if (matchedConfig.image) {
+                    iconElement.outerHTML = `<img src="${matchedConfig.image}" alt="" style="display: inline-block !important; width: 26px !important; height: 26px !important; vertical-align: middle !important; margin-right: 8px !important; object-fit: contain;">`;
+                }
             } else {
                 const imgElement = h2.querySelector('img');
-                if (imgElement) {
-                    imgElement.style.setProperty('width', '24px', 'important');
-                    imgElement.style.setProperty('height', '24px', 'important');
+                if (imgElement && matchedConfig.image) {
+                    imgElement.src = matchedConfig.image;
+                    imgElement.style.setProperty('width', '26px', 'important');
+                    imgElement.style.setProperty('height', '26px', 'important');
                     imgElement.style.setProperty('margin-right', '8px', 'important');
                     imgElement.style.setProperty('vertical-align', 'middle', 'important');
+                    imgElement.style.setProperty('object-fit', 'contain', 'important');
                 }
             }
         }
@@ -1141,14 +1209,15 @@ function fixDonerIcons() {
 const originalRenderCategories = renderCategories;
 renderCategories = function() {
     originalRenderCategories();
-    fixDonerIcons();
+    fixAllCategoryIcons();
 };
 
 const originalRenderDishes = renderDishes;
 renderDishes = function() {
     originalRenderDishes();
-    fixDonerIcons();
+    fixAllCategoryIcons();
 };
+
 
 function scrollToCategory(categoryId) {
     const categoriesArray = [
